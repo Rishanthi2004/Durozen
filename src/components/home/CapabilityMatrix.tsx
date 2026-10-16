@@ -35,15 +35,9 @@ export default function CapabilityMatrix() {
         <FadeIn>
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
             <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F4F3EE] border border-black/[0.06] text-neutral-600 mb-4">
-                <span className="w-2 h-2 rounded-full bg-[#2647A5]" />
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em]">
-                  DISCIPLINE & CAPABILITIES
-                </span>
-              </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#121316] tracking-tight leading-[1.12]">
                 Architected for Enterprise{" "}
-                <span className="font-editorial font-normal italic text-[1.15em] px-1">
+                <span className="text-[#2647A5] px-1">
                   Velocity
                 </span>{" "}
                 & Reliability.
@@ -80,12 +74,12 @@ export default function CapabilityMatrix() {
                       : "bg-[#F4F3EE]/60 hover:bg-[#F4F3EE] border border-transparent"
                   }`}
                 >
-                  {/* Left Accent indicator stripe */}
+                  {/* Subtle active ring */}
                   {isActive && (
                     <motion.div
                       layoutId="activeIndicator"
-                      style={{ backgroundColor: service.color }}
-                      className="absolute top-0 left-0 bottom-0 w-1.5"
+                      style={{ borderColor: service.color }}
+                      className="absolute inset-0 rounded-2xl border-2 pointer-events-none opacity-40"
                     />
                   )}
 
@@ -99,8 +93,8 @@ export default function CapabilityMatrix() {
 
                     <div className="flex-1">
                       <div className="flex items-center justify-between">
-                        <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-neutral-600">
-                          0{idx + 1} • {service.badge}
+                        <span className="text-xs font-semibold text-neutral-500">
+                          {service.badge}
                         </span>
                         {isActive && (
                           <span
@@ -143,13 +137,7 @@ export default function CapabilityMatrix() {
                 {/* Header of Detail Panel */}
                 <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-black/[0.06]">
                   <div>
-                    <span
-                      style={{ color: currentService.color }}
-                      className="text-xs font-bold uppercase tracking-[0.18em]"
-                    >
-                      {currentService.badge}
-                    </span>
-                    <h3 className="text-2xl sm:text-3xl font-extrabold text-[#121316] tracking-tight mt-1">
+                    <h3 className="text-2xl sm:text-3xl font-extrabold text-[#121316] tracking-tight">
                       {currentService.headline}
                     </h3>
                   </div>
@@ -169,18 +157,18 @@ export default function CapabilityMatrix() {
                   {currentService.detailedContent.overview}
                 </p>
 
-                {/* Key Deliverables & Architecture Points */}
-                <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                {/* Key Deliverables & Architecture Points (Clean Flat List, No Nested Cards) */}
+                <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-y-3.5 gap-x-6">
                   {currentService.capabilities.slice(0, 4).map((cap, i) => (
                     <div
                       key={i}
-                      className="flex items-start gap-3 p-3 sm:p-3.5 rounded-xl bg-[#FAF9F6] border border-black/[0.04]"
+                      className="flex items-start gap-3"
                     >
                       <CheckCircle2
                         style={{ color: currentService.color }}
                         className="w-4 h-4 shrink-0 mt-0.5"
                       />
-                      <span className="text-xs font-medium text-neutral-800 leading-snug">
+                      <span className="text-sm font-medium text-neutral-800 leading-snug">
                         {cap}
                       </span>
                     </div>
@@ -194,7 +182,7 @@ export default function CapabilityMatrix() {
                       <span className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#121316] tracking-tight">
                         {m.value}
                       </span>
-                      <span className="text-[10px] sm:text-[11px] text-neutral-600 mt-0.5 font-medium leading-tight">
+                      <span className="text-xs sm:text-sm text-neutral-600 mt-0.5 font-medium leading-tight">
                         {m.label}
                       </span>
                     </div>
@@ -203,7 +191,7 @@ export default function CapabilityMatrix() {
 
                 {/* Tech Stack Chips */}
                 <div className="mt-6 pt-6 border-t border-black/[0.06] flex flex-wrap items-center gap-2">
-                  <span className="text-[10px] uppercase font-bold tracking-wider text-neutral-600 mr-2">
+                  <span className="text-xs uppercase font-semibold tracking-wider text-neutral-600 mr-2">
                     Technologies:
                   </span>
                   {currentService.technologies.map((tech) => (

@@ -62,9 +62,9 @@ export default function InnovationCollaborationAnimation() {
             <Rocket className="w-5 h-5 text-white" />
           </div>
           <div>
-            <div className="text-[12px] font-bold text-[#121316]">Engineering Guild</div>
-            <div className="text-[9px] font-semibold text-[#F4A81E] uppercase tracking-wider flex items-center gap-1 mt-0.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#549B31] animate-pulse" />
+            <div className="text-xs font-bold text-[#121316]">Engineering Guild</div>
+            <div className="text-xs font-semibold text-[#F4A81E] uppercase tracking-wider flex items-center gap-1.5 mt-0.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#549B31]" />
               Autonomy & Impact
             </div>
           </div>

@@ -378,12 +378,12 @@ export default function ContactPage() {
                     <div>
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2">
-                          <span className="w-2 h-2 rounded-full bg-[#DE2F28] animate-pulse" />
-                          <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-neutral-500">
+                          <span className="w-2 h-2 rounded-full bg-[#DE2F28]" />
+                          <span className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">
                             OFFICE LOCATION • MAP
                           </span>
                         </div>
-                        <span className="text-[11px] font-mono text-neutral-400">
+                        <span className="text-xs font-mono text-neutral-500">
                           11.15° N, 78.22° E
                         </span>
                       </div>

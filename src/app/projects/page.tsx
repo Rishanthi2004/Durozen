@@ -40,16 +40,9 @@ export default function ProjectsPage() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               <div className="lg:col-span-7">
                 <FadeIn>
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F4F3EE] border border-black/[0.06] text-neutral-600 mb-6 shadow-sm">
-                    <span className="w-2 h-2 rounded-full bg-[#DE2F28]" />
-                    <span className="text-[10px] font-bold uppercase tracking-[0.2em]">
-                      PORTFOLIO & CASE STUDIES
-                    </span>
-                  </div>
-
                   <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#121316] leading-[1.1]">
                     Architectural Proof Across{" "}
-                    <span className="font-editorial font-normal italic text-[1.14em] px-1">
+                    <span className="text-[#24419E] px-1">
                       Mission-Critical
                     </span>{" "}
                     Domains.
@@ -187,7 +180,7 @@ export default function ProjectsPage() {
 
                       {/* Project Meta (Sector & Year) */}
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-[10px] font-bold uppercase tracking-[0.14em] px-2 py-0.5 rounded bg-[#FAF9F6] text-neutral-600 border border-black/[0.04]">
+                        <span className="text-xs font-semibold uppercase tracking-[0.14em] px-2.5 py-0.5 rounded bg-[#FAF9F6] text-neutral-600 border border-black/[0.04]">
                           {project.sector}
                         </span>
                         <span className="text-xs font-mono text-neutral-400">
@@ -195,10 +188,10 @@ export default function ProjectsPage() {
                         </span>
                       </div>
 
-                      {/* Project Title (Matches Reference Image bold deep blue style) */}
-                      <h3 className="text-xl sm:text-2xl font-extrabold text-[#24419E] tracking-tight group-hover:text-[#121316] transition-colors leading-snug">
+                      {/* Project Title (h2 for valid hierarchy under h1) */}
+                      <h2 className="text-xl sm:text-2xl font-extrabold text-[#24419E] tracking-tight group-hover:text-[#121316] transition-colors leading-snug">
                         {project.title}
-                      </h3>
+                      </h2>
 
                       {/* Short Project Description */}
                       <p className="mt-2 text-xs sm:text-sm text-neutral-600 leading-relaxed font-normal">
@@ -208,7 +201,7 @@ export default function ProjectsPage() {
                       {/* Key Features List (Clean & Compact) */}
                       {project.features && (
                         <div className="mt-4 space-y-1.5">
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 block">
+                          <span className="text-xs font-semibold uppercase tracking-wider text-neutral-500 block">
                             KEY HIGHLIGHTS
                           </span>
                           <div className="space-y-1">
@@ -236,7 +229,7 @@ export default function ProjectsPage() {
                         {project.tags.slice(0, 4).map((tag) => (
                           <span
                             key={tag}
-                            className="text-[10px] font-medium px-2 py-0.5 rounded bg-[#FAF9F6] text-neutral-600 border border-black/[0.04]"
+                            className="text-xs font-medium px-2 py-0.5 rounded bg-[#FAF9F6] text-neutral-600 border border-black/[0.04]"
                           >
                             {tag}
                           </span>
@@ -271,13 +264,6 @@ export default function ProjectsPage() {
           <div className="mb-24 pt-8 border-t border-black/[0.06]">
             <FadeIn>
               <div className="mb-10 sm:mb-12">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F4F3EE] border border-black/[0.06] text-neutral-600 mb-4 shadow-sm">
-                  <span className="w-2 h-2 rounded-full bg-[#4C9B35]" />
-                  <span className="text-[10px] font-bold uppercase tracking-[0.2em]">
-                    ANDROID APPLICATIONS
-                  </span>
-                </div>
-
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
                   <div>
                     <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#121316] leading-tight">
@@ -330,8 +316,8 @@ export default function ProjectsPage() {
                             {app.tagline}
                           </p>
                           <div className="mt-1.5 flex items-center gap-1.5">
-                            <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                            <span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                               <span>{app.badge}</span>
                             </span>
                           </div>
@@ -365,10 +351,10 @@ export default function ProjectsPage() {
 
                       {/* Sector Pill */}
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-[10px] font-bold uppercase tracking-[0.14em] px-2 py-0.5 rounded bg-[#FAF9F6] text-neutral-600 border border-black/[0.04]">
+                        <span className="text-xs font-semibold uppercase tracking-[0.14em] px-2.5 py-0.5 rounded bg-[#FAF9F6] text-neutral-600 border border-black/[0.04]">
                           {app.category}
                         </span>
-                        <span className="text-[10px] font-mono text-neutral-400">
+                        <span className="text-xs font-mono text-neutral-500">
                           Android App
                         </span>
                       </div>
@@ -380,7 +366,7 @@ export default function ProjectsPage() {
 
                       {/* Highlights */}
                       <div className="mt-4 pt-3 border-t border-black/[0.05] space-y-1.5">
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 block mb-1">
+                        <span className="text-xs font-semibold uppercase tracking-wider text-neutral-500 block mb-1">
                           CORE CAPABILITIES
                         </span>
                         {app.features.map((feat, fIdx) => (

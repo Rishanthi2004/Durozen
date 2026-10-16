@@ -21,21 +21,18 @@ export default function CtaBanner() {
             <span className="w-2.5 h-2.5 rounded-full bg-[#F4A81E]" />
             <span className="w-2.5 h-2.5 rounded-full bg-[#549B31]" />
             <span className="w-2.5 h-2.5 rounded-full bg-[#24419E]" />
-            <span className="text-[11px] font-bold tracking-[0.2em] uppercase text-neutral-400 ml-2">
-              START A CONVERSATION
-            </span>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-8">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
                 Ready to Engineer Your Next{" "}
-                <span className="font-editorial font-normal italic text-[1.16em] text-white px-1">
+                <span className="text-[#DE2F28] px-1">
                   Intelligent
                 </span>{" "}
                 Breakthrough?
               </h2>
-              <p className="mt-4 text-base sm:text-lg text-neutral-300 max-w-2xl leading-relaxed">
+              <p className="mt-4 text-base sm:text-lg text-neutral-300 max-w-[55ch] leading-relaxed">
                 Connect with our senior engineering architects today. We will evaluate your technical landscape, discuss feasibility, and propose an executable roadmap.
               </p>
             </div>
@@ -45,7 +42,7 @@ export default function CtaBanner() {
                 href="/contact"
                 className="group inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-[#DE2F28] text-white font-bold text-xs sm:text-sm tracking-tight shadow-lg hover:bg-[#c8241e] hover:shadow-xl transition-all duration-200"
               >
-                <span>SCHEDULE DISCOVERY CALL</span>
+                <span>Schedule Discovery Call</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
 

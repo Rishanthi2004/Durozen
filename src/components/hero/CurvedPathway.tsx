@@ -346,7 +346,7 @@ export default function CurvedPathway() {
                 width: `${sat.size}px`,
                 height: `${sat.size}px`,
                 backgroundColor: sat.color,
-                boxShadow: `0 0 10px ${sat.color}`,
+                boxShadow: "0 2px 4px rgba(0,0,0,0.15)",
               }}
               className="rounded-full pointer-events-none opacity-85"
             />
@@ -427,10 +427,10 @@ export default function CurvedPathway() {
                   {/* Icon */}
                   <div className="relative z-10">{node.icon}</div>
 
-                  {/* Status Pulse Dot */}
+                  {/* Status Indicator Dot */}
                   <span
                     style={{ backgroundColor: node.color }}
-                    className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-white animate-pulse"
+                    className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-white ring-1 ring-black/10"
                   />
                 </button>
 
@@ -453,7 +453,7 @@ export default function CurvedPathway() {
                   <div className="flex items-center justify-between mb-1.5">
                     <span
                       style={{ color: node.color }}
-                      className="text-[10px] font-bold uppercase tracking-wider"
+                      className="text-xs font-bold uppercase tracking-wider"
                     >
                       {node.category}
                     </span>
@@ -481,11 +481,11 @@ export default function CurvedPathway() {
                         style={{ backgroundColor: node.color }}
                         className="w-1.5 h-1.5 rounded-full shrink-0"
                       />
-                      <span className="text-[11px] font-bold text-[#121316]">
+                      <span className="text-xs font-bold text-[#121316]">
                         {node.metric}
                       </span>
                     </div>
-                    <span className="text-[10px] text-neutral-600 leading-snug">
+                    <span className="text-xs text-neutral-600 leading-snug">
                       {node.subtext}
                     </span>
                   </div>

@@ -141,11 +141,11 @@ export default function HumanInnovationAnimation() {
             </div>
           </div>
           <div>
-            <div className="text-[11px] font-bold text-[#121316] tracking-tight">
+            <div className="text-xs font-bold text-[#121316] tracking-tight">
               Human-Led Innovation
             </div>
-            <div className="text-[9px] font-medium text-neutral-500 uppercase tracking-widest flex items-center gap-1.5 mt-0.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#549B31] animate-pulse" />
+            <div className="text-xs font-medium text-neutral-500 uppercase tracking-wider flex items-center gap-1.5 mt-0.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#549B31]" />
               Creative Intelligence
             </div>
           </div>

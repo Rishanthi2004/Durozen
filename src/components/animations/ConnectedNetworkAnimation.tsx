@@ -305,9 +305,8 @@ export default function ConnectedNetworkAnimation() {
               top: "85%",
               left: "20%",
               transform: "translate(-50%, -50%)",
-              boxShadow: "0 0 6px rgba(244, 168, 30, 0.5)",
             }}
-            className="w-1.5 h-1.5 rounded-full bg-[#F4A81E]"
+            className="w-1.5 h-1.5 rounded-full bg-[#F4A81E] ring-1 ring-white/50"
           />
         </motion.div>
 

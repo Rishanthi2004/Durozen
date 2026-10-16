@@ -16,15 +16,9 @@ export default function FeaturedWork() {
         <FadeIn>
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
             <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F4F3EE] border border-black/[0.06] text-neutral-600 mb-4">
-                <span className="w-2 h-2 rounded-full bg-[#549B31]" />
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em]">
-                  PROVEN OUTCOMES
-                </span>
-              </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#121316] tracking-tight leading-[1.12]">
                 Real Systems Delivered for{" "}
-                <span className="font-editorial font-normal italic text-[1.15em] px-1">
+                <span className="text-[#549B31] px-1">
                   Real Scale.
                 </span>
               </h2>
@@ -85,7 +79,7 @@ export default function FeaturedWork() {
                             {m.value}
                           </span>
                         </div>
-                        <span className="text-[10px] sm:text-[11px] text-neutral-600 mt-0.5 font-medium leading-tight">
+                        <span className="text-xs sm:text-sm text-neutral-600 mt-0.5 font-medium leading-tight">
                           {m.label}
                         </span>
                       </div>
@@ -105,8 +99,8 @@ export default function FeaturedWork() {
                   </div>
                 </div>
 
-                {/* Right: Architectural Visual Card */}
-                <div className="lg:col-span-5 bg-[#FAF9F6] rounded-2xl p-6 sm:p-8 border border-black/[0.05] flex flex-col justify-between h-full min-h-[260px] relative">
+                {/* Right: Architectural Specification Column (Clean Flat Layout, No Nested Cards) */}
+                <div className="lg:col-span-5 flex flex-col justify-between h-full min-h-[260px] pt-4 lg:pt-0 lg:pl-8 lg:border-l border-black/[0.06]">
                   <div className="flex items-center justify-between pb-4 border-b border-black/[0.06]">
                     <div className="flex items-center gap-2">
                       <span
@@ -114,7 +108,7 @@ export default function FeaturedWork() {
                         className="w-2.5 h-2.5 rounded-full"
                       />
                       <span className="text-xs font-bold tracking-wider uppercase text-neutral-600">
-                        SYSTEM ARCHITECTURE
+                        System Architecture
                       </span>
                     </div>
                     <span className="text-xs font-mono text-neutral-600">
@@ -122,21 +116,21 @@ export default function FeaturedWork() {
                     </span>
                   </div>
 
-                  <div className="my-6 space-y-3">
-                    <div className="p-3 bg-white rounded-xl border border-black/[0.04] shadow-sm">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-600 block">
-                        THE CHALLENGE
+                  <div className="my-6 space-y-4">
+                    <div className="border-l-2 border-neutral-300 pl-3.5 py-0.5">
+                      <span className="text-xs font-bold uppercase tracking-wider text-neutral-700 block">
+                        The Challenge
                       </span>
-                      <p className="text-xs text-neutral-700 mt-1 line-clamp-2">
+                      <p className="text-xs sm:text-sm text-neutral-600 mt-1 line-clamp-2 leading-relaxed">
                         {project.challenge}
                       </p>
                     </div>
 
-                    <div className="p-3 bg-white rounded-xl border border-black/[0.04] shadow-sm">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#24419E] block">
-                        THE DUROZEN SOLUTION
+                    <div className="border-l-2 border-[#24419E] pl-3.5 py-0.5">
+                      <span className="text-xs font-bold uppercase tracking-wider text-[#24419E] block">
+                        The Durozen Solution
                       </span>
-                      <p className="text-xs text-neutral-700 mt-1 line-clamp-2">
+                      <p className="text-xs sm:text-sm text-neutral-600 mt-1 line-clamp-2 leading-relaxed">
                         {project.solution}
                       </p>
                     </div>

@@ -119,13 +119,13 @@ export default function MetricBlock({ layout = "vertical" }: { layout?: "vertica
           </div>
 
           {/* Label Display */}
-          <p className="mt-1 text-[11px] sm:text-sm font-semibold text-[#121316] tracking-tight">
+          <p className="mt-1 text-xs sm:text-sm font-semibold text-[#121316] tracking-tight">
             {item.label}
           </p>
 
           {/* Optional Sublabel */}
           {item.sublabel && (
-            <p className="text-[10px] sm:text-xs text-neutral-500 mt-0.5 tracking-normal leading-tight">
+            <p className="text-xs text-neutral-700 mt-0.5 tracking-normal leading-tight">
               {item.sublabel}
             </p>
           )}

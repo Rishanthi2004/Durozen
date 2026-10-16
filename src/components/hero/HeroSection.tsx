@@ -9,7 +9,7 @@ import CurvedPathway from "./CurvedPathway";
 
 export default function HeroSection() {
   return (
-    <section className="relative pt-32 sm:pt-36 lg:pt-40 pb-20 sm:pb-28 overflow-hidden isolate">
+    <section className="relative pt-32 sm:pt-36 lg:pt-40 pb-20 sm:pb-28 overflow-x-clip isolate">
       {/* Lightly Blurred Durozen Headquarters Background Image */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
         <Image
@@ -40,7 +40,7 @@ export default function HeroSection() {
               className="text-3xl sm:text-5xl lg:text-[58px] xl:text-[64px] font-extrabold text-[#121316] tracking-tight leading-[1.1] sm:leading-[1.08] text-left"
             >
               Engineering{" "}
-              <span className="font-editorial font-normal italic text-[1.12em] text-[#121316] inline-block tracking-normal px-1">
+              <span className="text-[#DE2F28] inline-block tracking-normal px-1">
                 Intelligent
               </span>
               <br />
@@ -52,7 +52,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-6 text-base sm:text-lg text-neutral-600 leading-relaxed max-w-xl text-left font-normal"
+              className="mt-6 text-base sm:text-lg text-neutral-600 leading-relaxed max-w-[65ch] text-left font-normal"
             >
               Your Trusted Digital Transformation Partner. We build intelligent software, scalable applications, and cloud-powered solutions that help businesses move forward.
             </motion.p>

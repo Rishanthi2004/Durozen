@@ -114,6 +114,18 @@ interface StaggerItemProps {
   distance?: number;
 }
 
+export const defaultItemVariants: Variants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.48,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
+
 export function StaggerItem({
   children,
   className = "",
@@ -156,6 +168,7 @@ interface HoverCardProps {
   style?: React.CSSProperties;
   onClick?: () => void;
   id?: string;
+  variants?: Variants;
 }
 
 export function HoverCard({
@@ -166,6 +179,7 @@ export function HoverCard({
   style,
   onClick,
   id,
+  variants,
 }: HoverCardProps) {
   const shouldReduceMotion = useReducedMotion();
   const accentClass = getCardAccentClass(accent);
@@ -182,6 +196,7 @@ export function HoverCard({
   return (
     <motion.div
       id={id}
+      variants={variants}
       style={style}
       onClick={onClick}
       whileHover={{

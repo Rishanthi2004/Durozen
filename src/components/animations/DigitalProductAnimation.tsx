@@ -64,7 +64,7 @@ export default function DigitalProductAnimation() {
               <span className="w-2 h-2 rounded-full bg-[#DE2F28]" />
               <span className="w-2 h-2 rounded-full bg-[#F4A81E]" />
               <span className="w-2 h-2 rounded-full bg-[#549B31]" />
-              <span className="text-[9px] font-mono text-neutral-400 ml-1">app.durozen.io</span>
+              <span className="text-xs font-mono text-neutral-500 ml-1">app.durozen.io</span>
             </div>
             <Layout className="w-3.5 h-3.5 text-neutral-400" />
           </div>
@@ -72,8 +72,8 @@ export default function DigitalProductAnimation() {
           {/* Mini Sparkline Chart Mockup */}
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-bold text-[#121316]">Active Deployments</span>
-              <span className="text-[9px] font-bold text-[#549B31] flex items-center">
+              <span className="text-xs font-bold text-[#121316]">Active Deployments</span>
+              <span className="text-xs font-bold text-[#549B31] flex items-center">
                 <TrendingUp className="w-2.5 h-2.5 mr-0.5" /> +28.4%
               </span>
             </div>
@@ -110,16 +110,16 @@ export default function DigitalProductAnimation() {
           {/* Mobile UI Screen */}
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-bold text-[#121316]">Fintech Portal</span>
-              <Smartphone className="w-3 h-3 text-[#24419E]" />
+              <span className="text-xs font-bold text-[#121316]">Fintech Portal</span>
+              <Smartphone className="w-3.5 h-3.5 text-[#24419E]" />
             </div>
 
             <div className="p-2 rounded-xl bg-[#24419E]/8 border border-[#24419E]/10">
-              <div className="text-[8px] text-neutral-500 uppercase font-semibold">Total Volume</div>
-              <div className="text-[12px] font-bold text-[#24419E]">$4.8M USD</div>
+              <div className="text-xs text-neutral-500 uppercase font-semibold">Total Volume</div>
+              <div className="text-xs font-bold text-[#24419E]">$4.8M USD</div>
             </div>
 
-            <div className="flex items-center justify-between text-[8px] text-neutral-600 font-medium px-1">
+            <div className="flex items-center justify-between text-xs text-neutral-600 font-medium px-1">
               <span>SLA Target</span>
               <span className="font-bold text-[#549B31]">99.98%</span>
             </div>
@@ -133,8 +133,8 @@ export default function DigitalProductAnimation() {
         transition={{ duration: 5.2, repeat: Infinity, ease: "easeInOut", delay: 1 }}
         className="absolute bottom-[14%] left-[16%] z-40 pointer-events-auto"
       >
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#121316] text-white shadow-lg text-[10px] font-semibold">
-          <span className="w-2 h-2 rounded-full bg-[#549B31] animate-pulse" />
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#121316] text-white shadow-lg text-xs font-semibold">
+          <span className="w-2 h-2 rounded-full bg-[#549B31]" />
           <span>Product Shipped to App Store & Web</span>
           <ArrowUpRight className="w-3 h-3 text-neutral-300" />
         </div>

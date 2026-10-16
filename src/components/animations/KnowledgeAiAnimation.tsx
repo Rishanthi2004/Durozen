@@ -96,9 +96,9 @@ export default function KnowledgeAiAnimation() {
             <Sparkles className="w-5 h-5 text-[#F4A81E]" />
           </div>
           <div>
-            <div className="text-[11px] font-bold text-[#121316]">Cognitive Intelligence Engine</div>
-            <div className="text-[9px] font-medium text-neutral-500 uppercase tracking-widest flex items-center gap-1 mt-0.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#549B31] animate-pulse" />
+            <div className="text-xs font-bold text-[#121316]">Cognitive Intelligence Engine</div>
+            <div className="text-xs font-medium text-neutral-500 uppercase tracking-wider flex items-center gap-1.5 mt-0.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#549B31]" />
               Verified Knowledge Stream
             </div>
           </div>

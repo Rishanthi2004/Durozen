@@ -69,7 +69,7 @@ export default function Footer() {
             </div>
 
             <div className="mt-8 flex items-center gap-3">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#549B31] animate-pulse" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#549B31] ring-2 ring-emerald-100" />
               <span className="text-xs font-semibold text-neutral-600">
                 All Systems Operational • Enterprise SLAs Active
               </span>
@@ -78,9 +78,9 @@ export default function Footer() {
 
           {/* Quick Links Column (Services) - Side by Side on Mobile */}
           <div className="col-span-1 lg:col-span-2">
-            <h4 className="text-xs font-bold uppercase tracking-[0.16em] text-neutral-500 mb-4">
+            <h3 className="text-xs font-bold uppercase tracking-[0.16em] text-neutral-500 mb-4">
               Services
-            </h4>
+            </h3>
             <ul className="space-y-2.5 text-sm">
               <li>
                 <Link
@@ -127,9 +127,9 @@ export default function Footer() {
 
           {/* Company Column - Side by Side on Mobile */}
           <div className="col-span-1 lg:col-span-2">
-            <h4 className="text-xs font-bold uppercase tracking-[0.16em] text-neutral-500 mb-4">
+            <h3 className="text-xs font-bold uppercase tracking-[0.16em] text-neutral-500 mb-4">
               Company
-            </h4>
+            </h3>
             <ul className="space-y-2.5 text-sm">
               <li>
                 <Link
@@ -200,9 +200,9 @@ export default function Footer() {
 
           {/* Newsletter / Tech Insights Column */}
           <div className="col-span-2 md:col-span-2 lg:col-span-3">
-            <h4 className="text-xs font-bold uppercase tracking-[0.16em] text-neutral-500 mb-4">
+            <h3 className="text-xs font-bold uppercase tracking-[0.16em] text-neutral-500 mb-4">
               Engineering Dispatch
-            </h4>
+            </h3>
             <p className="text-xs text-neutral-600 mb-4 leading-relaxed">
               Quarterly perspectives on distributed computing, LLM operations, and cloud architecture from Durozen Technologies.
             </p>
@@ -220,7 +220,7 @@ export default function Footer() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your work email"
-                  className="w-full px-3.5 py-2 text-xs rounded-xl bg-white border border-black/10 focus:outline-none focus:border-[#24419E] text-[#121316] placeholder:text-neutral-400"
+                  className="w-full px-3.5 py-2 text-xs rounded-xl bg-white border border-black/10 focus:outline-none focus:border-[#24419E] text-[#121316] placeholder:text-neutral-500"
                 />
                 <button
                   type="submit"

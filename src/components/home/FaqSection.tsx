@@ -36,16 +36,9 @@ export default function FaqSection() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeIn>
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-black/[0.06] text-neutral-600 mb-4 shadow-sm">
-              <span className="w-2 h-2 rounded-full bg-[#DE2F28]" />
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em]">
-                ANSWERS & CLARITY
-              </span>
-            </div>
-
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#121316] tracking-tight leading-[1.12]">
               Frequently Asked{" "}
-              <span className="font-editorial font-normal italic text-[1.15em] px-1">
+              <span className="text-[#DE2F28] px-1">
                 Questions.
               </span>
             </h2>
@@ -57,12 +50,13 @@ export default function FaqSection() {
             const isOpen = openIndex === index;
 
             return (
-              <FadeIn key={index} delay={index * 0.05}>
-                <div
-                  className={`bg-white rounded-2xl border border-black/[0.06] overflow-hidden durozen-card-default shadow-[0_4px_16px_rgba(0,0,0,0.02)] ${
-                    isOpen ? "border-black/[0.12] bg-[#FAF8F5]" : ""
-                  }`}
-                >
+              <FadeIn
+                key={index}
+                delay={index * 0.05}
+                className={`bg-white rounded-2xl border border-black/[0.06] overflow-hidden durozen-card-default shadow-[0_4px_16px_rgba(0,0,0,0.02)] transition-colors duration-200 ${
+                  isOpen ? "border-black/[0.12] bg-[#FAF8F5]" : ""
+                }`}
+              >
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : index)}
                   className="w-full px-6 py-5 flex items-center justify-between text-left gap-4 font-semibold text-base sm:text-lg text-[#121316]"
@@ -84,16 +78,15 @@ export default function FaqSection() {
                       transition={{ duration: 0.25 }}
                       className="overflow-hidden"
                     >
-                      <div className="px-6 pb-6 text-sm text-neutral-600 leading-relaxed border-t border-black/[0.04] pt-4 font-normal">
+                      <div className="px-6 pb-6 text-sm text-neutral-600 leading-relaxed border-t border-black/[0.04] pt-4 font-normal max-w-[55ch]">
                         {faq.a}
                       </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </div>
-            </FadeIn>
-          );
-        })}
+              </FadeIn>
+            );
+          })}
       </div>
       </div>
     </section>
