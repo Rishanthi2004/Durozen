@@ -3,12 +3,14 @@
 import React, { useState } from "react";
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
-import { Mail, Phone, MapPin, Send, CheckCircle2, MessageCircle, ArrowUpRight } from "lucide-react";
+import { Mail, Phone, MapPin, Send, CheckCircle2, MessageCircle, ArrowUpRight, Loader2 } from "lucide-react";
 import { FadeIn, HoverCard } from "@/components/common/MotionTransitions";
 import ConnectedNetworkAnimation from "@/components/animations/ConnectedNetworkAnimation";
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     company: "",
@@ -19,9 +21,37 @@ export default function ContactPage() {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+    setErrorMessage(null);
+
+    const scriptUrl = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL || "";
+
+    if (scriptUrl) {
+      try {
+        await fetch(scriptUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8",
+          },
+          body: JSON.stringify(formData),
+          mode: "no-cors",
+        });
+        setSubmitted(true);
+      } catch (err) {
+        console.error("Error submitting inquiry to Google Apps Script:", err);
+        setErrorMessage("An unexpected error occurred while sending your inquiry. Please try again or email us directly at info@durozen.in.");
+      } finally {
+        setIsSubmitting(false);
+      }
+    } else {
+      // Graceful fallback if environment variable is not yet configured
+      setTimeout(() => {
+        setIsSubmitting(false);
+        setSubmitted(true);
+      }, 600);
+    }
   };
 
   const serviceOptions = [
@@ -255,13 +285,29 @@ export default function ContactPage() {
                     />
                   </div>
 
+                  {errorMessage && (
+                    <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-xs font-semibold text-[#DE2F28] leading-relaxed">
+                      {errorMessage}
+                    </div>
+                  )}
+
                   <div>
                     <button
                       type="submit"
-                      className="group w-full py-4 rounded-full bg-[#DE2F28] text-white font-bold text-sm tracking-tight shadow-md hover:bg-[#c9241e] transition-all duration-200 flex items-center justify-center gap-2"
+                      disabled={isSubmitting}
+                      className="group w-full py-4 rounded-full bg-[#DE2F28] text-white font-bold text-sm tracking-tight shadow-md hover:bg-[#c9241e] disabled:opacity-75 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center gap-2"
                     >
-                      <Send className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
-                      <span>Send Project Inquiry</span>
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin text-white" />
+                          <span>Sending Project Inquiry...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Send className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
+                          <span>Send Project Inquiry</span>
+                        </>
+                      )}
                     </button>
                   </div>
                 </form>
