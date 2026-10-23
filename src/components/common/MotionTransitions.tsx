@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 
 interface FadeInProps {
   children: React.ReactNode;
@@ -22,12 +22,6 @@ export function FadeIn({
   className = "",
   once = true,
 }: FadeInProps) {
-  const shouldReduceMotion = useReducedMotion();
-
-  if (shouldReduceMotion) {
-    return <div className={className}>{children}</div>;
-  }
-
   const getInitialOffset = () => {
     switch (direction) {
       case "up":
@@ -78,12 +72,6 @@ export function StaggerContainer({
   className = "",
   once = true,
 }: StaggerContainerProps) {
-  const shouldReduceMotion = useReducedMotion();
-
-  if (shouldReduceMotion) {
-    return <div className={className}>{children}</div>;
-  }
-
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -131,12 +119,6 @@ export function StaggerItem({
   className = "",
   distance = 16,
 }: StaggerItemProps) {
-  const shouldReduceMotion = useReducedMotion();
-
-  if (shouldReduceMotion) {
-    return <div className={className}>{children}</div>;
-  }
-
   const itemVariants: Variants = {
     hidden: { opacity: 0, y: distance },
     visible: {
@@ -181,17 +163,8 @@ export function HoverCard({
   id,
   variants,
 }: HoverCardProps) {
-  const shouldReduceMotion = useReducedMotion();
   const accentClass = getCardAccentClass(accent);
   const combinedClassName = `${accentClass} ${className}`.trim();
-
-  if (shouldReduceMotion) {
-    return (
-      <div id={id} style={style} onClick={onClick} className={combinedClassName}>
-        {children}
-      </div>
-    );
-  }
 
   return (
     <motion.div
