@@ -14,7 +14,6 @@ import {
   Rocket,
   Activity,
   RefreshCw,
-  ArrowRight,
 } from "lucide-react";
 import { FadeIn, StaggerContainer, StaggerItem, HoverCard } from "@/components/common/MotionTransitions";
 

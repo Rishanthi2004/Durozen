@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
-import { ArrowRight, BookOpen, Clock, Calendar, Tag, Sparkles } from "lucide-react";
+import { ArrowRight, Clock, Calendar } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FadeIn, HoverCard } from "@/components/common/MotionTransitions";
 import KnowledgeAiAnimation from "@/components/animations/KnowledgeAiAnimation";
