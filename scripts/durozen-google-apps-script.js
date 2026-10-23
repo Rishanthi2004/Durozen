@@ -316,74 +316,191 @@ function appendCareerRecord(sheet, r) {
 }
 
 // ============================================================================
-// EMAIL TEMPLATES: CONTACT INQUIRIES
+// EMAIL TEMPLATES: CONTACT INQUIRIES & CAREER APPLICATIONS
 // ============================================================================
 
+/**
+ * Production-Grade HTML Template: Admin Alert for Client Inquiries
+ */
 function sendContactAdminAlert(r) {
   const formattedDate = Utilities.formatDate(r.timestamp, CONFIG.TIMEZONE, "dd MMM yyyy, hh:mm a") + " IST";
-  const subject = `[New Project Inquiry] ${r.service} - ${r.fullName} ${r.company && r.company !== "Not specified" ? "(" + r.company + ")" : ""}`;
+  const subject = `[Project Inquiry] ${r.service} - ${r.fullName} ${r.company && r.company !== "Not specified" ? "(" + r.company + ")" : ""}`;
+  const previewText = `New project consultation: ${r.fullName} (${r.company}) requesting ${r.service} [Budget: ${r.budget}]`;
 
   const htmlBody = `
-  <!DOCTYPE html>
-  <html>
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8">
-    <style>
-      body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #121316; margin: 0; padding: 0; background-color: #f7f6f2; }
-      .wrapper { max-width: 620px; margin: 24px auto; background-color: #ffffff; border-radius: 14px; overflow: hidden; border: 1px solid #e5e5e0; }
-      .stripe { height: 5px; background: linear-gradient(90deg, #DE2F28 0%, #F4A81E 33%, #549B31 66%, #24419E 100%); }
-      .header { background-color: #121316; padding: 26px 28px; }
-      .brand { color: #ffffff; margin: 0; font-size: 20px; font-weight: 800; letter-spacing: -0.02em; }
-      .brand span { color: #DE2F28; }
-      .sub { color: #8F908E; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; margin-top: 4px; }
-      .content { padding: 28px; }
-      .badge { display: inline-block; padding: 4px 10px; background-color: #FAF9F6; border: 1px solid #e2e1dc; border-radius: 20px; font-size: 10px; font-weight: 700; color: #DE2F28; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
-      .title { font-size: 22px; font-weight: 800; color: #121316; margin: 0 0 6px 0; }
-      .desc { font-size: 13px; color: #666666; margin: 0 0 20px 0; }
-      .table { width: 100%; border-collapse: separate; border-spacing: 0; margin-bottom: 24px; border-radius: 8px; overflow: hidden; border: 1px solid #ebeae5; }
-      .table td { padding: 11px 14px; border-bottom: 1px solid #ebeae5; font-size: 13px; }
-      .table tr:last-child td { border-bottom: none; }
-      .col-label { width: 32%; background-color: #faf9f6; font-weight: 700; color: #555555; text-transform: uppercase; font-size: 11px; }
-      .col-val { color: #121316; font-weight: 600; }
-      .pill { display: inline-block; padding: 3px 10px; border-radius: 5px; font-size: 11px; font-weight: 700; color: #ffffff; }
-      .pill-service { background-color: #24419E; }
-      .pill-budget { background-color: #549B31; }
-      .msg-box { background-color: #faf9f6; border-left: 4px solid #DE2F28; padding: 14px 18px; border-radius: 0 8px 8px 0; font-size: 13px; white-space: pre-wrap; border: 1px solid #ebeae5; margin-bottom: 24px; }
-      .btn { display: inline-block; background-color: #DE2F28; color: #ffffff !important; padding: 12px 26px; border-radius: 9999px; font-size: 13px; font-weight: 700; text-decoration: none; }
-      .footer { background-color: #f4f3ee; padding: 20px; text-align: center; border-top: 1px solid #ebeae5; font-size: 11px; color: #777; }
-    </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>${escapeHtml(subject)}</title>
   </head>
-  <body>
-    <div class="wrapper">
-      <div class="stripe"></div>
-      <div class="header">
-        <div class="brand">DUROZEN<span>.</span> TECHNOLOGIES</div>
-        <div class="sub">Inbound Project Consultation Routing</div>
-      </div>
-      <div class="content">
-        <div class="badge">${r.source}</div>
-        <h2 class="title">New Client Consultation Request</h2>
-        <p class="desc">A client has submitted an inquiry on the website portal.</p>
-
-        <table class="table">
-          <tr><td class="col-label">Full Name</td><td class="col-val">${escapeHtml(r.fullName)}</td></tr>
-          <tr><td class="col-label">Company</td><td class="col-val">${escapeHtml(r.company)}</td></tr>
-          <tr><td class="col-label">Email</td><td class="col-val"><a href="mailto:${r.email}">${escapeHtml(r.email)}</a></td></tr>
-          <tr><td class="col-label">Phone</td><td class="col-val"><a href="tel:${r.phone}">${escapeHtml(r.phone)}</a></td></tr>
-          <tr><td class="col-label">Service</td><td class="col-val"><span class="pill pill-service">${escapeHtml(r.service)}</span></td></tr>
-          <tr><td class="col-label">Budget</td><td class="col-val"><span class="pill pill-budget">${escapeHtml(r.budget)}</span></td></tr>
-          <tr><td class="col-label">Received At</td><td class="col-val">${formattedDate}</td></tr>
-        </table>
-
-        <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #666; margin-bottom: 6px;">Project Scope:</div>
-        <div class="msg-box">${escapeHtml(r.message)}</div>
-
-        <div style="text-align: center; margin: 24px 0 10px;">
-          <a href="mailto:${r.email}?subject=Re:%20Durozen%20Consultation%20-%20${encodeURIComponent(r.service)}" class="btn">Reply to ${escapeHtml(r.fullName)} &rarr;</a>
-        </div>
-      </div>
-      <div class="footer">${CONFIG.COMPANY_NAME} Pvt. Ltd. • ${CONFIG.ADMIN_EMAIL}</div>
+  <body style="margin: 0; padding: 0; background-color: #F4F3EE; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased;">
+    <!-- Hidden Preview Text -->
+    <div style="display: none; font-size: 1px; color: #FAF9F6; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all;">
+      ${escapeHtml(previewText)}
     </div>
+
+    <!-- Main Container -->
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #F4F3EE; padding: 32px 12px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 620px; background-color: #FFFFFF; border-radius: 16px; overflow: hidden; border: 1px solid #E5E4DE; box-shadow: 0 4px 20px rgba(0,0,0,0.04);">
+            
+            <!-- 4-Color Brand Stripe -->
+            <tr>
+              <td style="height: 5px; background: linear-gradient(90deg, #DE2F28 0%, #F4A81E 33%, #549B31 66%, #24419E 100%); line-height: 5px; font-size: 1px;">&nbsp;</td>
+            </tr>
+
+            <!-- Header -->
+            <tr>
+              <td style="background-color: #121316; padding: 28px 32px;">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                    <td>
+                      <div style="font-size: 20px; font-weight: 800; color: #FFFFFF; letter-spacing: -0.02em; line-height: 1.2;">
+                        DUROZEN<span style="color: #DE2F28;">.</span> TECHNOLOGIES
+                      </div>
+                      <div style="font-size: 11px; font-weight: 600; color: #9A9B99; text-transform: uppercase; letter-spacing: 0.16em; margin-top: 5px;">
+                        Enterprise Client Ingestion Engine
+                      </div>
+                    </td>
+                    <td align="right" style="vertical-align: middle;">
+                      <span style="display: inline-block; padding: 5px 12px; background-color: rgba(222, 47, 40, 0.18); border: 1px solid rgba(222, 47, 40, 0.4); border-radius: 20px; font-size: 10px; font-weight: 800; color: #FF6B65; text-transform: uppercase; letter-spacing: 0.12em;">
+                        NEW LEAD
+                      </span>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!-- Body Content -->
+            <tr>
+              <td style="padding: 32px 32px 24px 32px;">
+                
+                <!-- Headline Card -->
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 24px;">
+                  <tr>
+                    <td>
+                      <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: #DE2F28; margin-bottom: 6px;">
+                        Channel: ${escapeHtml(r.source)}
+                      </div>
+                      <h1 style="font-size: 22px; font-weight: 800; color: #121316; margin: 0 0 8px 0; line-height: 1.25; letter-spacing: -0.01em;">
+                        Project Consultation Request
+                      </h1>
+                      <p style="font-size: 13px; color: #666664; margin: 0; line-height: 1.6;">
+                        A prospect has submitted inquiry details through the portal. Review requirements and initiate the discovery pipeline.
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Structured Key-Value Specification Grid -->
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse: separate; border-spacing: 0; border: 1px solid #ECEBE6; border-radius: 12px; overflow: hidden; margin-bottom: 24px;">
+                  <tr style="background-color: #FAF9F6;">
+                    <td width="34%" style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 11px; font-weight: 700; color: #666664; text-transform: uppercase; letter-spacing: 0.06em;">
+                      Client Name
+                    </td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 13px; font-weight: 700; color: #121316;">
+                      ${escapeHtml(r.fullName)}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 11px; font-weight: 700; color: #666664; text-transform: uppercase; letter-spacing: 0.06em; background-color: #FAF9F6;">
+                      Company / Organization
+                    </td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 13px; font-weight: 600; color: #121316;">
+                      ${escapeHtml(r.company)}
+                    </td>
+                  </tr>
+                  <tr style="background-color: #FAF9F6;">
+                    <td style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 11px; font-weight: 700; color: #666664; text-transform: uppercase; letter-spacing: 0.06em;">
+                      Work Email
+                    </td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 13px; font-weight: 600; color: #24419E;">
+                      <a href="mailto:${r.email}" style="color: #24419E; text-decoration: none; font-weight: 600;">${escapeHtml(r.email)}</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 11px; font-weight: 700; color: #666664; text-transform: uppercase; letter-spacing: 0.06em; background-color: #FAF9F6;">
+                      Direct Phone
+                    </td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 13px; font-weight: 600; color: #121316;">
+                      <a href="tel:${r.phone}" style="color: #121316; text-decoration: none; font-weight: 600;">${escapeHtml(r.phone)}</a>
+                    </td>
+                  </tr>
+                  <tr style="background-color: #FAF9F6;">
+                    <td style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 11px; font-weight: 700; color: #666664; text-transform: uppercase; letter-spacing: 0.06em;">
+                      Required Service
+                    </td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 13px; font-weight: 700;">
+                      <span style="display: inline-block; padding: 4px 10px; background-color: #24419E; color: #FFFFFF; border-radius: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.02em;">
+                        ${escapeHtml(r.service)}
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 11px; font-weight: 700; color: #666664; text-transform: uppercase; letter-spacing: 0.06em; background-color: #FAF9F6;">
+                      Budget Range
+                    </td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 13px; font-weight: 700;">
+                      <span style="display: inline-block; padding: 4px 10px; background-color: #549B31; color: #FFFFFF; border-radius: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.02em;">
+                        ${escapeHtml(r.budget)}
+                      </span>
+                    </td>
+                  </tr>
+                  <tr style="background-color: #FAF9F6;">
+                    <td style="padding: 12px 16px; font-size: 11px; font-weight: 700; color: #666664; text-transform: uppercase; letter-spacing: 0.06em;">
+                      Timestamp
+                    </td>
+                    <td style="padding: 12px 16px; font-size: 12px; font-weight: 600; color: #555553;">
+                      ${formattedDate}
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Message / Project Scope Card -->
+                <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: #121316; letter-spacing: 0.1em; margin-bottom: 8px;">
+                  Project Brief &amp; Problem Statement:
+                </div>
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 28px;">
+                  <tr>
+                    <td style="background-color: #FAF9F6; border-left: 4px solid #DE2F28; border-top: 1px solid #ECEBE6; border-right: 1px solid #ECEBE6; border-bottom: 1px solid #ECEBE6; padding: 18px 20px; border-radius: 0 10px 10px 0; font-size: 13px; color: #121316; line-height: 1.65; white-space: pre-wrap;">${escapeHtml(r.message)}</td>
+                  </tr>
+                </table>
+
+                <!-- Primary Action CTA -->
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 12px;">
+                  <tr>
+                    <td align="center">
+                      <a href="mailto:${r.email}?subject=Re:%20Durozen%20Technologies%20Consultation%20-%20${encodeURIComponent(r.service)}" style="display: inline-block; background-color: #DE2F28; color: #FFFFFF !important; padding: 14px 34px; border-radius: 9999px; font-size: 13px; font-weight: 700; text-decoration: none; letter-spacing: 0.02em; box-shadow: 0 4px 14px rgba(222, 47, 40, 0.25);">
+                        Reply to ${escapeHtml(r.fullName)} &rarr;
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+
+              </td>
+            </tr>
+
+            <!-- Footer -->
+            <tr>
+              <td style="background-color: #FAF9F6; padding: 24px 32px; border-top: 1px solid #ECEBE6; text-align: center;">
+                <div style="font-size: 12px; font-weight: 700; color: #121316; margin-bottom: 4px;">
+                  ${CONFIG.COMPANY_NAME} Pvt. Ltd.
+                </div>
+                <div style="font-size: 11px; color: #777775; line-height: 1.5;">
+                  Your Trusted Digital Transformation Partner • <a href="${CONFIG.WEBSITE_URL}" style="color: #24419E; text-decoration: none;">${CONFIG.WEBSITE_URL}</a><br />
+                  Sent automatically by the Durozen Enterprise Lead Orchestrator.
+                </div>
+              </td>
+            </tr>
+
+          </table>
+        </td>
+      </tr>
+    </table>
   </body>
   </html>
   `;
@@ -397,29 +514,167 @@ function sendContactAdminAlert(r) {
   });
 }
 
+/**
+ * Production-Grade HTML Template: Client Confirmation Receipt
+ */
 function sendContactClientReceipt(r) {
-  const subject = `Thank you for contacting ${CONFIG.COMPANY_NAME}`;
+  const subject = `Inquiry Confirmed: Welcome to ${CONFIG.COMPANY_NAME}`;
+  const refId = `DRZ-${Math.floor(100000 + Math.random() * 900000)}`;
+  const previewText = `Thank you for consulting Durozen Technologies. Your inquiry regarding ${r.service} has been received.`;
+
   const htmlBody = `
-  <!DOCTYPE html>
-  <html>
-  <head><meta charset="utf-8"></head>
-  <body style="font-family: sans-serif; background-color: #f7f6f2; padding: 20px; color: #121316;">
-    <div style="max-width: 580px; margin: 0 auto; background: #fff; border-radius: 12px; overflow: hidden; border: 1px solid #e0e0e0;">
-      <div style="height: 4px; background: #DE2F28;"></div>
-      <div style="padding: 28px;">
-        <h2 style="margin-top: 0; color: #121316;">Inquiry Received - ${CONFIG.COMPANY_NAME}</h2>
-        <p>Hi ${escapeHtml(r.fullName)},</p>
-        <p>Thank you for reaching out regarding <strong>${escapeHtml(r.service)}</strong>. We have logged your request into our systems.</p>
-        <div style="background: #faf9f6; padding: 14px 18px; border-radius: 8px; border: 1px solid #eee; margin: 18px 0; font-size: 13px;">
-          <strong>Request Summary:</strong><br/>
-          • Service: ${escapeHtml(r.service)}<br/>
-          • Budget Estimate: ${escapeHtml(r.budget)}<br/>
-          • Reference ID: DRZ-${Math.floor(100000 + Math.random() * 900000)}
-        </div>
-        <p>Our solutions engineering team will review your requirements and respond within <strong>24 business hours</strong>.</p>
-        <p>Best regards,<br/><strong>Team Durozen Technologies</strong></p>
-      </div>
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>${escapeHtml(subject)}</title>
+  </head>
+  <body style="margin: 0; padding: 0; background-color: #F4F3EE; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased;">
+    <!-- Hidden Preview Text -->
+    <div style="display: none; font-size: 1px; color: #FAF9F6; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all;">
+      ${escapeHtml(previewText)}
     </div>
+
+    <!-- Main Container -->
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #F4F3EE; padding: 32px 12px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px; background-color: #FFFFFF; border-radius: 16px; overflow: hidden; border: 1px solid #E5E4DE; box-shadow: 0 4px 20px rgba(0,0,0,0.04);">
+            
+            <!-- 4-Color Brand Stripe -->
+            <tr>
+              <td style="height: 5px; background: linear-gradient(90deg, #DE2F28 0%, #F4A81E 33%, #549B31 66%, #24419E 100%); line-height: 5px; font-size: 1px;">&nbsp;</td>
+            </tr>
+
+            <!-- Header -->
+            <tr>
+              <td style="background-color: #121316; padding: 28px 32px;">
+                <div style="font-size: 20px; font-weight: 800; color: #FFFFFF; letter-spacing: -0.02em;">
+                  DUROZEN<span style="color: #DE2F28;">.</span> TECHNOLOGIES
+                </div>
+                <div style="font-size: 11px; font-weight: 600; color: #9A9B99; text-transform: uppercase; letter-spacing: 0.16em; margin-top: 5px;">
+                  Your Trusted Digital Transformation Partner
+                </div>
+              </td>
+            </tr>
+
+            <!-- Body -->
+            <tr>
+              <td style="padding: 32px 32px 24px 32px;">
+                <div style="display: inline-block; padding: 4px 12px; background-color: #F0F7ED; border: 1px solid #D1E7CA; border-radius: 20px; font-size: 10px; font-weight: 800; color: #3E7923; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 14px;">
+                  INQUIRY CONFIRMED
+                </div>
+
+                <h1 style="font-size: 22px; font-weight: 800; color: #121316; margin: 0 0 12px 0; line-height: 1.3;">
+                  Hello ${escapeHtml(r.fullName)},
+                </h1>
+
+                <p style="font-size: 14px; color: #4B4C4A; line-height: 1.65; margin: 0 0 20px 0;">
+                  Thank you for reaching out to <strong>Durozen Technologies</strong> regarding <strong>${escapeHtml(r.service)}</strong>. Your request has been securely logged into our client delivery pipeline.
+                </p>
+
+                <!-- Summary Receipt Card -->
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #FAF9F6; border: 1px solid #ECEBE6; border-radius: 12px; overflow: hidden; margin-bottom: 24px;">
+                  <tr>
+                    <td style="padding: 16px 20px;">
+                      <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #777775; margin-bottom: 8px;">
+                        Consultation Summary
+                      </div>
+                      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                          <td style="padding: 4px 0; font-size: 13px; color: #666664;">Reference Number:</td>
+                          <td align="right" style="padding: 4px 0; font-size: 13px; font-weight: 700; font-family: monospace; color: #121316;">${refId}</td>
+                        </tr>
+                        <tr>
+                          <td style="padding: 4px 0; font-size: 13px; color: #666664;">Requested Capability:</td>
+                          <td align="right" style="padding: 4px 0; font-size: 13px; font-weight: 700; color: #24419E;">${escapeHtml(r.service)}</td>
+                        </tr>
+                        <tr>
+                          <td style="padding: 4px 0; font-size: 13px; color: #666664;">Allocated Budget Scope:</td>
+                          <td align="right" style="padding: 4px 0; font-size: 13px; font-weight: 700; color: #549B31;">${escapeHtml(r.budget)}</td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- 3-Step Next Steps Flow -->
+                <div style="font-size: 12px; font-weight: 800; text-transform: uppercase; color: #121316; letter-spacing: 0.08em; margin-bottom: 12px;">
+                  What Happens Next:
+                </div>
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 24px;">
+                  <tr>
+                    <td style="padding-bottom: 12px;">
+                      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                          <td width="28" style="vertical-align: top;">
+                            <div style="width: 22px; height: 22px; border-radius: 50%; background-color: #DE2F28; color: #FFFFFF; font-size: 11px; font-weight: 800; text-align: center; line-height: 22px;">1</div>
+                          </td>
+                          <td style="font-size: 13px; color: #4B4C4A; line-height: 1.5;">
+                            <strong>Technical Scoping (0–12 Hours):</strong> Our solutions architects analyze your technical problem statement and stack feasibility.
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding-bottom: 12px;">
+                      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                          <td width="28" style="vertical-align: top;">
+                            <div style="width: 22px; height: 22px; border-radius: 50%; background-color: #F4A81E; color: #FFFFFF; font-size: 11px; font-weight: 800; text-align: center; line-height: 22px;">2</div>
+                          </td>
+                          <td style="font-size: 13px; color: #4B4C4A; line-height: 1.5;">
+                            <strong>Engineering Consultation:</strong> We schedule a focused, 30-minute discovery call to map architectural milestones.
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                          <td width="28" style="vertical-align: top;">
+                            <div style="width: 22px; height: 22px; border-radius: 50%; background-color: #24419E; color: #FFFFFF; font-size: 11px; font-weight: 800; text-align: center; line-height: 22px;">3</div>
+                          </td>
+                          <td style="font-size: 13px; color: #4B4C4A; line-height: 1.5;">
+                            <strong>Execution Blueprint:</strong> You receive a high-level roadmap, timeline estimate, and engineering commitment.
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Immediate Assistance Box -->
+                <div style="padding: 16px; background-color: #FAF9F6; border-radius: 10px; border: 1px dashed #D6D5CF; font-size: 12px; color: #666664; line-height: 1.5;">
+                  Need immediate support? Contact our technical advisory team directly at <a href="mailto:${CONFIG.ADMIN_EMAIL}" style="color: #24419E; font-weight: 700; text-decoration: none;">${CONFIG.ADMIN_EMAIL}</a> or call <a href="tel:${CONFIG.SUPPORT_PHONE}" style="color: #121316; font-weight: 700; text-decoration: none;">${CONFIG.SUPPORT_PHONE}</a>.
+                </div>
+
+                <p style="font-size: 13px; color: #121316; margin: 24px 0 0 0; line-height: 1.6;">
+                  Warm regards,<br />
+                  <strong>Solutions Engineering Leadership</strong><br />
+                  <span style="font-size: 12px; color: #777775;">Durozen Technologies Pvt. Ltd.</span>
+                </p>
+              </td>
+            </tr>
+
+            <!-- Footer -->
+            <tr>
+              <td style="background-color: #FAF9F6; padding: 24px 32px; border-top: 1px solid #ECEBE6; text-align: center;">
+                <div style="font-size: 11px; color: #777775; line-height: 1.5;">
+                  &copy; ${new Date().getFullYear()} ${CONFIG.COMPANY_NAME} Pvt. Ltd. All rights reserved.<br />
+                  Namakkal, Tamil Nadu, India • <a href="${CONFIG.WEBSITE_URL}" style="color: #24419E; text-decoration: none;">${CONFIG.WEBSITE_URL}</a>
+                </div>
+              </td>
+            </tr>
+
+          </table>
+        </td>
+      </tr>
+    </table>
   </body>
   </html>
   `;
@@ -433,75 +688,177 @@ function sendContactClientReceipt(r) {
   });
 }
 
-// ============================================================================
-// EMAIL TEMPLATES: CAREERS / TALENT ENQUIRIES
-// ============================================================================
-
+/**
+ * Production-Grade HTML Template: Admin Alert for Career Applications
+ */
 function sendCareerAdminAlert(r) {
   const formattedDate = Utilities.formatDate(r.timestamp, CONFIG.TIMEZONE, "dd MMM yyyy, hh:mm a") + " IST";
   const subject = `[Career Application] ${r.discipline} - ${r.fullName}`;
+  const previewText = `New candidate profile: ${r.fullName} applying for ${r.discipline}`;
 
   const htmlBody = `
-  <!DOCTYPE html>
-  <html>
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8">
-    <style>
-      body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #121316; margin: 0; padding: 0; background-color: #f7f6f2; }
-      .wrapper { max-width: 620px; margin: 24px auto; background-color: #ffffff; border-radius: 14px; overflow: hidden; border: 1px solid #e5e5e0; }
-      .stripe { height: 5px; background: linear-gradient(90deg, #F4A81E 0%, #DE2F28 50%, #24419E 100%); }
-      .header { background-color: #121316; padding: 26px 28px; }
-      .brand { color: #ffffff; margin: 0; font-size: 20px; font-weight: 800; }
-      .brand span { color: #F4A81E; }
-      .sub { color: #8F908E; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; margin-top: 4px; }
-      .content { padding: 28px; }
-      .badge { display: inline-block; padding: 4px 10px; background-color: #FAF9F6; border: 1px solid #e2e1dc; border-radius: 20px; font-size: 10px; font-weight: 700; color: #F4A81E; text-transform: uppercase; margin-bottom: 12px; }
-      .title { font-size: 22px; font-weight: 800; color: #121316; margin: 0 0 6px 0; }
-      .table { width: 100%; border-collapse: separate; border-spacing: 0; margin-bottom: 24px; border-radius: 8px; overflow: hidden; border: 1px solid #ebeae5; }
-      .table td { padding: 11px 14px; border-bottom: 1px solid #ebeae5; font-size: 13px; }
-      .table tr:last-child td { border-bottom: none; }
-      .col-label { width: 34%; background-color: #faf9f6; font-weight: 700; color: #555555; text-transform: uppercase; font-size: 11px; }
-      .col-val { color: #121316; font-weight: 600; }
-      .pill { display: inline-block; background-color: #F4A81E; color: #ffffff; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 5px; }
-      .msg-box { background-color: #faf9f6; border-left: 4px solid #F4A81E; padding: 14px 18px; border-radius: 0 8px 8px 0; font-size: 13px; white-space: pre-wrap; border: 1px solid #ebeae5; margin-bottom: 24px; }
-      .btn { display: inline-block; background-color: #121316; color: #ffffff !important; padding: 12px 24px; border-radius: 9999px; font-size: 13px; font-weight: 700; text-decoration: none; margin-right: 10px; }
-      .btn-secondary { display: inline-block; background-color: #F4A81E; color: #ffffff !important; padding: 12px 24px; border-radius: 9999px; font-size: 13px; font-weight: 700; text-decoration: none; }
-      .footer { background-color: #f4f3ee; padding: 20px; text-align: center; border-top: 1px solid #ebeae5; font-size: 11px; color: #777; }
-    </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>${escapeHtml(subject)}</title>
   </head>
-  <body>
-    <div class="wrapper">
-      <div class="stripe"></div>
-      <div class="header">
-        <div class="brand">DUROZEN<span>.</span> TALENT PIPELINE</div>
-        <div class="sub">Candidate Application Notification</div>
-      </div>
-      <div class="content">
-        <div class="badge">Discipline: ${escapeHtml(r.discipline)}</div>
-        <h2 class="title">New Candidate Application</h2>
-        <p style="font-size: 13px; color: #666; margin: 0 0 20px 0;">A candidate has submitted their engineering credentials for review:</p>
-
-        <table class="table">
-          <tr><td class="col-label">Candidate Name</td><td class="col-val">${escapeHtml(r.fullName)}</td></tr>
-          <tr><td class="col-label">Email Address</td><td class="col-val"><a href="mailto:${r.email}">${escapeHtml(r.email)}</a></td></tr>
-          <tr><td class="col-label">Phone</td><td class="col-val"><a href="tel:${r.phone}">${escapeHtml(r.phone)}</a></td></tr>
-          <tr><td class="col-label">Target Discipline</td><td class="col-val"><span class="pill">${escapeHtml(r.discipline)}</span></td></tr>
-          <tr><td class="col-label">Portfolio / Link</td><td class="col-val">${r.portfolioUrl && r.portfolioUrl !== "N/A" ? '<a href="' + r.portfolioUrl + '" target="_blank">' + escapeHtml(r.portfolioUrl) + '</a>' : 'Not provided'}</td></tr>
-          <tr><td class="col-label">Applied On</td><td class="col-val">${formattedDate}</td></tr>
-        </table>
-
-        <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #666; margin-bottom: 6px;">Introduction / Candidate Note:</div>
-        <div class="msg-box">${escapeHtml(r.message)}</div>
-
-        <div style="text-align: center; margin: 24px 0 10px;">
-          <a href="mailto:${r.email}?subject=Durozen%20Careers%20-%20Interview%20Next%20Steps" class="btn">
-            Email Candidate &rarr;
-          </a>
-          ${r.portfolioUrl && r.portfolioUrl !== "N/A" ? '<a href="' + r.portfolioUrl + '" target="_blank" class="btn-secondary">Open Portfolio</a>' : ''}
-        </div>
-      </div>
-      <div class="footer">${CONFIG.COMPANY_NAME} Talent Acquisition • ${CONFIG.CAREERS_EMAIL}</div>
+  <body style="margin: 0; padding: 0; background-color: #F4F3EE; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased;">
+    <!-- Hidden Preview Text -->
+    <div style="display: none; font-size: 1px; color: #FAF9F6; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all;">
+      ${escapeHtml(previewText)}
     </div>
+
+    <!-- Main Container -->
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #F4F3EE; padding: 32px 12px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 620px; background-color: #FFFFFF; border-radius: 16px; overflow: hidden; border: 1px solid #E5E4DE; box-shadow: 0 4px 20px rgba(0,0,0,0.04);">
+            
+            <!-- 4-Color Brand Stripe -->
+            <tr>
+              <td style="height: 5px; background: linear-gradient(90deg, #F4A81E 0%, #DE2F28 50%, #24419E 100%); line-height: 5px; font-size: 1px;">&nbsp;</td>
+            </tr>
+
+            <!-- Header -->
+            <tr>
+              <td style="background-color: #121316; padding: 28px 32px;">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                    <td>
+                      <div style="font-size: 20px; font-weight: 800; color: #FFFFFF; letter-spacing: -0.02em; line-height: 1.2;">
+                        DUROZEN<span style="color: #F4A81E;">.</span> TALENT PIPELINE
+                      </div>
+                      <div style="font-size: 11px; font-weight: 600; color: #9A9B99; text-transform: uppercase; letter-spacing: 0.16em; margin-top: 5px;">
+                        Engineering Craft &amp; Candidate Acquisition
+                      </div>
+                    </td>
+                    <td align="right" style="vertical-align: middle;">
+                      <span style="display: inline-block; padding: 5px 12px; background-color: rgba(244, 168, 30, 0.18); border: 1px solid rgba(244, 168, 30, 0.4); border-radius: 20px; font-size: 10px; font-weight: 800; color: #F4A81E; text-transform: uppercase; letter-spacing: 0.12em;">
+                        NEW CANDIDATE
+                      </span>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!-- Body Content -->
+            <tr>
+              <td style="padding: 32px 32px 24px 32px;">
+                
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 24px;">
+                  <tr>
+                    <td>
+                      <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: #F4A81E; margin-bottom: 6px;">
+                        Discipline: ${escapeHtml(r.discipline)}
+                      </div>
+                      <h1 style="font-size: 22px; font-weight: 800; color: #121316; margin: 0 0 8px 0; line-height: 1.25; letter-spacing: -0.01em;">
+                        Candidate Application Received
+                      </h1>
+                      <p style="font-size: 13px; color: #666664; margin: 0; line-height: 1.6;">
+                        A candidate has submitted their profile and engineering credentials. Review their portfolio and track record below.
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Candidate Grid -->
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse: separate; border-spacing: 0; border: 1px solid #ECEBE6; border-radius: 12px; overflow: hidden; margin-bottom: 24px;">
+                  <tr style="background-color: #FAF9F6;">
+                    <td width="34%" style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 11px; font-weight: 700; color: #666664; text-transform: uppercase; letter-spacing: 0.06em;">
+                      Candidate Name
+                    </td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 13px; font-weight: 700; color: #121316;">
+                      ${escapeHtml(r.fullName)}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 11px; font-weight: 700; color: #666664; text-transform: uppercase; letter-spacing: 0.06em; background-color: #FAF9F6;">
+                      Email Address
+                    </td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 13px; font-weight: 600; color: #24419E;">
+                      <a href="mailto:${r.email}" style="color: #24419E; text-decoration: none; font-weight: 600;">${escapeHtml(r.email)}</a>
+                    </td>
+                  </tr>
+                  <tr style="background-color: #FAF9F6;">
+                    <td style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 11px; font-weight: 700; color: #666664; text-transform: uppercase; letter-spacing: 0.06em;">
+                      Phone Number
+                    </td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 13px; font-weight: 600; color: #121316;">
+                      <a href="tel:${r.phone}" style="color: #121316; text-decoration: none; font-weight: 600;">${escapeHtml(r.phone)}</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 11px; font-weight: 700; color: #666664; text-transform: uppercase; letter-spacing: 0.06em; background-color: #FAF9F6;">
+                      Target Discipline
+                    </td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 13px; font-weight: 700;">
+                      <span style="display: inline-block; padding: 4px 10px; background-color: #F4A81E; color: #FFFFFF; border-radius: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.02em;">
+                        ${escapeHtml(r.discipline)}
+                      </span>
+                    </td>
+                  </tr>
+                  <tr style="background-color: #FAF9F6;">
+                    <td style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 11px; font-weight: 700; color: #666664; text-transform: uppercase; letter-spacing: 0.06em;">
+                      Portfolio / Profiles
+                    </td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 13px; font-weight: 600;">
+                      ${r.portfolioUrl && r.portfolioUrl !== "N/A" ? '<a href="' + r.portfolioUrl + '" target="_blank" style="color: #24419E; text-decoration: none; font-weight: 700;">' + escapeHtml(r.portfolioUrl) + ' &rarr;</a>' : '<span style="color: #999;">Not provided</span>'}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 12px 16px; font-size: 11px; font-weight: 700; color: #666664; text-transform: uppercase; letter-spacing: 0.06em; background-color: #FAF9F6;">
+                      Applied Date
+                    </td>
+                    <td style="padding: 12px 16px; font-size: 12px; font-weight: 600; color: #555553;">
+                      ${formattedDate}
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Note / Introduction Box -->
+                <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: #121316; letter-spacing: 0.1em; margin-bottom: 8px;">
+                  Candidate Introduction &amp; Systems Built:
+                </div>
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 28px;">
+                  <tr>
+                    <td style="background-color: #FAF9F6; border-left: 4px solid #F4A81E; border-top: 1px solid #ECEBE6; border-right: 1px solid #ECEBE6; border-bottom: 1px solid #ECEBE6; padding: 18px 20px; border-radius: 0 10px 10px 0; font-size: 13px; color: #121316; line-height: 1.65; white-space: pre-wrap;">${escapeHtml(r.message)}</td>
+                  </tr>
+                </table>
+
+                <!-- Action CTAs -->
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 12px;">
+                  <tr>
+                    <td align="center">
+                      <a href="mailto:${r.email}?subject=Durozen%20Careers%20-%20Interview%20Next%20Steps%20for%20${encodeURIComponent(r.discipline)}" style="display: inline-block; background-color: #121316; color: #FFFFFF !important; padding: 13px 30px; border-radius: 9999px; font-size: 13px; font-weight: 700; text-decoration: none; margin-right: 10px; box-shadow: 0 4px 14px rgba(0,0,0,0.15);">
+                        Contact Candidate &rarr;
+                      </a>
+                      ${r.portfolioUrl && r.portfolioUrl !== "N/A" ? '<a href="' + r.portfolioUrl + '" target="_blank" style="display: inline-block; background-color: #F4A81E; color: #FFFFFF !important; padding: 13px 26px; border-radius: 9999px; font-size: 13px; font-weight: 700; text-decoration: none; box-shadow: 0 4px 14px rgba(244, 168, 30, 0.25);">Open Portfolio</a>' : ''}
+                    </td>
+                  </tr>
+                </table>
+
+              </td>
+            </tr>
+
+            <!-- Footer -->
+            <tr>
+              <td style="background-color: #FAF9F6; padding: 24px 32px; border-top: 1px solid #ECEBE6; text-align: center;">
+                <div style="font-size: 12px; font-weight: 700; color: #121316; margin-bottom: 4px;">
+                  ${CONFIG.COMPANY_NAME} Talent Acquisition Team
+                </div>
+                <div style="font-size: 11px; color: #777775; line-height: 1.5;">
+                  Engineering High-Craft Systems • <a href="${CONFIG.WEBSITE_URL}" style="color: #24419E; text-decoration: none;">${CONFIG.WEBSITE_URL}</a>
+                </div>
+              </td>
+            </tr>
+
+          </table>
+        </td>
+      </tr>
+    </table>
   </body>
   </html>
   `;
@@ -515,24 +872,170 @@ function sendCareerAdminAlert(r) {
   });
 }
 
+/**
+ * Production-Grade HTML Template: Candidate Confirmation Receipt
+ */
 function sendCareerClientReceipt(r) {
-  const subject = `Your application to ${CONFIG.COMPANY_NAME} has been received`;
+  const subject = `Application Received: Welcome to ${CONFIG.COMPANY_NAME} Careers`;
+  const appRef = `APP-${Math.floor(100000 + Math.random() * 900000)}`;
+  const previewText = `Thank you for applying to Durozen Technologies as part of our ${r.discipline} team.`;
+
   const htmlBody = `
-  <!DOCTYPE html>
-  <html>
-  <head><meta charset="utf-8"></head>
-  <body style="font-family: sans-serif; background-color: #f7f6f2; padding: 20px; color: #121316;">
-    <div style="max-width: 580px; margin: 0 auto; background: #fff; border-radius: 12px; overflow: hidden; border: 1px solid #e0e0e0;">
-      <div style="height: 4px; background: #F4A81E;"></div>
-      <div style="padding: 28px;">
-        <h2 style="margin-top: 0; color: #121316;">Application Received</h2>
-        <p>Hi ${escapeHtml(r.fullName)},</p>
-        <p>Thank you for your interest in joining <strong>${CONFIG.COMPANY_NAME}</strong> as part of our <strong>${escapeHtml(r.discipline)}</strong> team.</p>
-        <p>Our engineering leadership evaluates profiles thoroughly with a strong focus on craft, autonomy, and clean software architecture. If your experience aligns with our current roadmap, our talent team will reach out directly for an introductory technical conversation.</p>
-        <p>We appreciate the time you took to share your work with us.</p>
-        <p style="margin-top: 24px;">Best regards,<br/><strong>Talent & Engineering Leadership</strong><br/>${CONFIG.COMPANY_NAME} Pvt. Ltd.</p>
-      </div>
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>${escapeHtml(subject)}</title>
+  </head>
+  <body style="margin: 0; padding: 0; background-color: #F4F3EE; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased;">
+    <!-- Hidden Preview Text -->
+    <div style="display: none; font-size: 1px; color: #FAF9F6; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all;">
+      ${escapeHtml(previewText)}
     </div>
+
+    <!-- Main Container -->
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #F4F3EE; padding: 32px 12px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px; background-color: #FFFFFF; border-radius: 16px; overflow: hidden; border: 1px solid #E5E4DE; box-shadow: 0 4px 20px rgba(0,0,0,0.04);">
+            
+            <!-- 4-Color Brand Stripe -->
+            <tr>
+              <td style="height: 5px; background: linear-gradient(90deg, #F4A81E 0%, #DE2F28 50%, #24419E 100%); line-height: 5px; font-size: 1px;">&nbsp;</td>
+            </tr>
+
+            <!-- Header -->
+            <tr>
+              <td style="background-color: #121316; padding: 28px 32px;">
+                <div style="font-size: 20px; font-weight: 800; color: #FFFFFF; letter-spacing: -0.02em;">
+                  DUROZEN<span style="color: #F4A81E;">.</span> CAREERS
+                </div>
+                <div style="font-size: 11px; font-weight: 600; color: #9A9B99; text-transform: uppercase; letter-spacing: 0.16em; margin-top: 5px;">
+                  High-Craft Software &amp; Scalable Engineering
+                </div>
+              </td>
+            </tr>
+
+            <!-- Body -->
+            <tr>
+              <td style="padding: 32px 32px 24px 32px;">
+                <div style="display: inline-block; padding: 4px 12px; background-color: #FEF8EC; border: 1px solid #FBE7BF; border-radius: 20px; font-size: 10px; font-weight: 800; color: #C27D05; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 14px;">
+                  PROFILE RECEIVED
+                </div>
+
+                <h1 style="font-size: 22px; font-weight: 800; color: #121316; margin: 0 0 12px 0; line-height: 1.3;">
+                  Hello ${escapeHtml(r.fullName)},
+                </h1>
+
+                <p style="font-size: 14px; color: #4B4C4A; line-height: 1.65; margin: 0 0 18px 0;">
+                  Thank you for your interest in building high-impact software systems with <strong>${CONFIG.COMPANY_NAME}</strong> as part of our <strong>${escapeHtml(r.discipline)}</strong> team.
+                </p>
+
+                <p style="font-size: 14px; color: #4B4C4A; line-height: 1.65; margin: 0 0 20px 0;">
+                  Our engineering leadership values craftsmanship, architectural rigor, and problem-solving velocity over boilerplate solutions. We treat candidate evaluations seriously and examine source contributions, architecture decisions, and portfolio work closely.
+                </p>
+
+                <!-- Application Summary Card -->
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #FAF9F6; border: 1px solid #ECEBE6; border-radius: 12px; overflow: hidden; margin-bottom: 24px;">
+                  <tr>
+                    <td style="padding: 16px 20px;">
+                      <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #777775; margin-bottom: 8px;">
+                        Application Metadata
+                      </div>
+                      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                          <td style="padding: 4px 0; font-size: 13px; color: #666664;">Application ID:</td>
+                          <td align="right" style="padding: 4px 0; font-size: 13px; font-weight: 700; font-family: monospace; color: #121316;">${appRef}</td>
+                        </tr>
+                        <tr>
+                          <td style="padding: 4px 0; font-size: 13px; color: #666664;">Target Discipline:</td>
+                          <td align="right" style="padding: 4px 0; font-size: 13px; font-weight: 700; color: #F4A81E;">${escapeHtml(r.discipline)}</td>
+                        </tr>
+                        <tr>
+                          <td style="padding: 4px 0; font-size: 13px; color: #666664;">Candidate Email:</td>
+                          <td align="right" style="padding: 4px 0; font-size: 13px; font-weight: 600; color: #121316;">${escapeHtml(r.email)}</td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Evaluation Process Timeline -->
+                <div style="font-size: 12px; font-weight: 800; text-transform: uppercase; color: #121316; letter-spacing: 0.08em; margin-bottom: 12px;">
+                  Our Interview &amp; Evaluation Philosophy:
+                </div>
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 24px;">
+                  <tr>
+                    <td style="padding-bottom: 12px;">
+                      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                          <td width="28" style="vertical-align: top;">
+                            <div style="width: 22px; height: 22px; border-radius: 50%; background-color: #F4A81E; color: #FFFFFF; font-size: 11px; font-weight: 800; text-align: center; line-height: 22px;">1</div>
+                          </td>
+                          <td style="font-size: 13px; color: #4B4C4A; line-height: 1.5;">
+                            <strong>Technical Deep-Dive:</strong> We review your public repositories, projects, or work samples rather than asking trivia questions.
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding-bottom: 12px;">
+                      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                          <td width="28" style="vertical-align: top;">
+                            <div style="width: 22px; height: 22px; border-radius: 50%; background-color: #DE2F28; color: #FFFFFF; font-size: 11px; font-weight: 800; text-align: center; line-height: 22px;">2</div>
+                          </td>
+                          <td style="font-size: 13px; color: #4B4C4A; line-height: 1.5;">
+                            <strong>Practical Architecture Discussion:</strong> A candid conversation with senior engineering peers on real problems and systems design.
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                          <td width="28" style="vertical-align: top;">
+                            <div style="width: 22px; height: 22px; border-radius: 50%; background-color: #24419E; color: #FFFFFF; font-size: 11px; font-weight: 800; text-align: center; line-height: 22px;">3</div>
+                          </td>
+                          <td style="font-size: 13px; color: #4B4C4A; line-height: 1.5;">
+                            <strong>Leadership &amp; Roadmap Alignment:</strong> Aligning on company vision, technical autonomy, and mutual fit.
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+
+                <p style="font-size: 14px; color: #4B4C4A; line-height: 1.6; margin: 0 0 20px 0;">
+                  If your background matches an active project engagement or roadmap priority, our talent team will reach out directly.
+                </p>
+
+                <p style="font-size: 13px; color: #121316; margin: 20px 0 0 0; line-height: 1.6;">
+                  Warm regards,<br />
+                  <strong>Talent Acquisition &amp; Engineering Leadership</strong><br />
+                  <span style="font-size: 12px; color: #777775;">${CONFIG.COMPANY_NAME} Pvt. Ltd.</span>
+                </p>
+              </td>
+            </tr>
+
+            <!-- Footer -->
+            <tr>
+              <td style="background-color: #FAF9F6; padding: 24px 32px; border-top: 1px solid #ECEBE6; text-align: center;">
+                <div style="font-size: 11px; color: #777775; line-height: 1.5;">
+                  &copy; ${new Date().getFullYear()} ${CONFIG.COMPANY_NAME} Pvt. Ltd. All rights reserved.<br />
+                  Namakkal, Tamil Nadu, India • <a href="${CONFIG.WEBSITE_URL}" style="color: #24419E; text-decoration: none;">${CONFIG.WEBSITE_URL}</a>
+                </div>
+              </td>
+            </tr>
+
+          </table>
+        </td>
+      </tr>
+    </table>
   </body>
   </html>
   `;
