@@ -32,7 +32,7 @@ function getCoordPercent(deg: number) {
   return { left: `${left}%`, top: `${top}%` };
 }
 
-export default function CurvedPathway() {
+export default function CurvedPathway({ isMobile = false }: { isMobile?: boolean }) {
   const [pinnedNode, setPinnedNode] = useState<string | null>(null);
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
 
@@ -151,10 +151,27 @@ export default function CurvedPathway() {
   const centerX = 300;
   const centerY = 300;
 
+  // Unique SVG IDs prevent DOM collisions between desktop and mobile instances
+  const prefix = isMobile ? "m_" : "";
+  const trackSurfaceId = `${prefix}orbit3DTrackSurface`;
+  const highlightId = `${prefix}orbit3DHighlight`;
+  const brandStreamId = `${prefix}orbit3DBrandStream`;
+  const shadowId = `${prefix}orbit3DShadow`;
+
   return (
-    <div className="orbit-container absolute right-0 top-[72%] sm:top-[68%] lg:top-1/2 -translate-y-1/2 translate-x-1/3 sm:translate-x-1/2 w-[340px] h-[340px] sm:w-[500px] sm:h-[500px] lg:w-[600px] lg:h-[600px] xl:w-[640px] xl:h-[640px] z-30 pointer-events-auto select-none">
+    <div
+      className={
+        isMobile
+          ? "orbit-container relative w-[310px] h-[310px] min-[390px]:w-[340px] min-[390px]:h-[340px] min-[430px]:w-[370px] min-[430px]:h-[370px] sm:w-[440px] sm:h-[440px] z-30 pointer-events-auto select-none shrink-0"
+          : "orbit-container absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-[600px] h-[600px] xl:w-[640px] xl:h-[640px] z-30 pointer-events-auto select-none"
+      }
+    >
       {/* Background ambient lighting aura */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gradient-to-tr from-[#DE2F28]/10 via-[#F4A81E]/10 to-[#24419E]/10 rounded-full blur-3xl -z-10 pointer-events-none" />
+      <div
+        className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ${
+          isMobile ? "w-64 h-64" : "w-80 h-80"
+        } bg-gradient-to-tr from-[#DE2F28]/10 via-[#F4A81E]/10 to-[#24419E]/10 rounded-full blur-3xl -z-10 pointer-events-none`}
+      />
 
       {/* SVG Canvas: 3D Curved Pathway Body with Rich Realistic Shadows & Bevels */}
       <svg
@@ -166,7 +183,7 @@ export default function CurvedPathway() {
         <defs>
           {/* Track Surface Gradient - Light elegant 3D shaded surface */}
           <linearGradient
-            id="orbit3DTrackSurface"
+            id={trackSurfaceId}
             x1="100"
             y1="80"
             x2="500"
@@ -182,7 +199,7 @@ export default function CurvedPathway() {
 
           {/* Highlight ridge gradient for tactile bevel */}
           <linearGradient
-            id="orbit3DHighlight"
+            id={highlightId}
             x1="80"
             y1="80"
             x2="520"
@@ -196,7 +213,7 @@ export default function CurvedPathway() {
 
           {/* Flowing multi-color Durozen data stream */}
           <linearGradient
-            id="orbit3DBrandStream"
+            id={brandStreamId}
             x1="0%"
             y1="0%"
             x2="100%"
@@ -210,7 +227,7 @@ export default function CurvedPathway() {
 
           {/* Deep realistic drop shadow filter */}
           <filter
-            id="orbit3DShadow"
+            id={shadowId}
             x="-30%"
             y="-30%"
             width="160%"
@@ -237,7 +254,7 @@ export default function CurvedPathway() {
           stroke="#000000"
           strokeWidth="58"
           strokeOpacity="0.05"
-          filter="url(#orbit3DShadow)"
+          filter={`url(#${shadowId})`}
         />
 
         {/* 2. Main 3D Thick Curved Circular Pathway Body */}
@@ -245,7 +262,7 @@ export default function CurvedPathway() {
           cx={centerX}
           cy={centerY}
           r={orbitRadius}
-          stroke="url(#orbit3DTrackSurface)"
+          stroke={`url(#${trackSurfaceId})`}
           strokeWidth="48"
         />
 
@@ -274,7 +291,7 @@ export default function CurvedPathway() {
           cx={centerX}
           cy={centerY}
           r={orbitRadius}
-          stroke="url(#orbit3DHighlight)"
+          stroke={`url(#${highlightId})`}
           strokeWidth="2.5"
           strokeDasharray="14 18"
           strokeOpacity="0.7"
@@ -296,7 +313,7 @@ export default function CurvedPathway() {
           cx={centerX}
           cy={centerY}
           r={orbitRadius}
-          stroke="url(#orbit3DBrandStream)"
+          stroke={`url(#${brandStreamId})`}
           strokeWidth="3"
           strokeLinecap="round"
           strokeDasharray="35 220"
@@ -311,8 +328,14 @@ export default function CurvedPathway() {
       </svg>
 
       {/* Three Statistics Blocks positioned inside the circular orbit's visible inner area */}
-      <div className="absolute top-1/2 -translate-y-1/2 left-[15%] sm:left-[20%] lg:left-[22%] z-20 pointer-events-auto text-left max-w-[140px] sm:max-w-[195px]">
-        <MetricBlock layout="vertical" />
+      <div
+        className={
+          isMobile
+            ? "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-auto text-center w-[170px] min-[390px]:w-[190px] flex flex-col items-center justify-center"
+            : "absolute top-1/2 -translate-y-1/2 left-[22%] z-20 pointer-events-auto text-left max-w-[195px]"
+        }
+      >
+        <MetricBlock layout="vertical" isMobile={isMobile} />
       </div>
 
       {/* CONTINUOUS ROTATION LAYER */}
@@ -343,8 +366,8 @@ export default function CurvedPathway() {
                 left,
                 top,
                 transform: "translate(-50%, -50%)",
-                width: `${sat.size}px`,
-                height: `${sat.size}px`,
+                width: `${isMobile ? Math.max(5, sat.size - 1.5) : sat.size}px`,
+                height: `${isMobile ? Math.max(5, sat.size - 1.5) : sat.size}px`,
                 backgroundColor: sat.color,
                 boxShadow: "0 2px 4px rgba(0,0,0,0.15)",
               }}
@@ -416,7 +439,11 @@ export default function CurvedPathway() {
                       : "0 12px 24px -5px rgba(0,0,0,0.32), 0 0 0 2px rgba(255,255,255,0.95)",
                     transform: isActive ? "scale(1.15)" : undefined,
                   }}
-                  className="w-12 h-12 sm:w-13 sm:h-13 rounded-full flex items-center justify-center p-3 relative text-white cursor-pointer transition-all duration-300 hover:scale-115 active:scale-95 focus:outline-none"
+                  className={`${
+                    isMobile
+                      ? "w-10 h-10 min-[390px]:w-11 min-[390px]:h-11 sm:w-12 sm:h-12 p-2 min-[390px]:p-2.5"
+                      : "w-12 h-12 sm:w-13 sm:h-13 p-3"
+                  } rounded-full flex items-center justify-center relative text-white cursor-pointer transition-all duration-300 hover:scale-115 active:scale-95 focus:outline-none`}
                 >
                   {/* Brand Color Inner Accent Ring */}
                   <div
@@ -425,12 +452,16 @@ export default function CurvedPathway() {
                   />
 
                   {/* Icon */}
-                  <div className="relative z-10">{node.icon}</div>
+                  <div className={`relative z-10 ${isMobile ? "scale-90 min-[390px]:scale-100" : ""}`}>
+                    {node.icon}
+                  </div>
 
                   {/* Status Indicator Dot */}
                   <span
                     style={{ backgroundColor: node.color }}
-                    className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-white ring-1 ring-black/10"
+                    className={`absolute -top-0.5 -right-0.5 ${
+                      isMobile ? "w-2.5 h-2.5" : "w-3 h-3"
+                    } rounded-full border-2 border-white ring-1 ring-black/10`}
                   />
                 </button>
 
@@ -448,7 +479,9 @@ export default function CurvedPathway() {
                     transition:
                       "opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1)",
                   }}
-                  className="absolute left-1/2 bottom-full mb-2.5 w-48 sm:w-64 p-3 sm:p-4 bg-white/98 backdrop-blur-xl rounded-2xl shadow-[0_20px_45px_rgba(0,0,0,0.2),0_4px_12px_rgba(0,0,0,0.08)] border border-black/[0.1] text-left z-[80] select-text pointer-events-auto"
+                  className={`absolute left-1/2 bottom-full mb-2.5 ${
+                    isMobile ? "w-44 min-[390px]:w-52 p-3" : "w-48 sm:w-64 p-3 sm:p-4"
+                  } bg-white/98 backdrop-blur-xl rounded-2xl shadow-[0_20px_45px_rgba(0,0,0,0.2),0_4px_12px_rgba(0,0,0,0.08)] border border-black/[0.1] text-left z-[80] select-text pointer-events-auto`}
                 >
                   <div className="flex items-center justify-between mb-1.5">
                     <span

@@ -62,44 +62,46 @@ export default function PhilosophySection() {
           </div>
         </FadeIn>
 
-        {/* 4 Brand Pillars (Non-generic grid with custom staggered geometry) */}
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* 4 Brand Pillars (Compact 2-column grid on mobile, standard on md/lg) */}
+        <StaggerContainer className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
           {principles.map((item, index) => (
             <HoverCard
               key={item.title}
               variants={defaultItemVariants}
               accent={item.color}
-              className="h-full bg-white rounded-3xl p-7 border border-black/[0.06] shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_45px_rgba(0,0,0,0.06)] flex flex-col justify-between group"
+              className="h-full bg-white rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 md:p-7 border border-black/[0.06] shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_45px_rgba(0,0,0,0.06)] flex flex-col justify-between group"
             >
               <div>
-                <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center justify-between mb-3 sm:mb-4 md:mb-6">
                   <div
                     style={{ backgroundColor: item.color }}
-                    className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform"
+                    className="w-8 h-8 min-[380px]:w-9 min-[380px]:h-9 md:w-12 md:h-12 rounded-xl md:rounded-2xl flex items-center justify-center shadow-sm shrink-0 group-hover:scale-105 transition-transform"
                   >
-                    {item.icon}
+                    <div className="scale-75 md:scale-100 flex items-center justify-center">
+                      {item.icon}
+                    </div>
                   </div>
-                  <span className="text-xs font-semibold uppercase tracking-wider text-neutral-600">
+                  <span className="text-[9px] min-[380px]:text-[10px] md:text-xs font-semibold uppercase tracking-wider text-neutral-600 truncate max-w-[70px] min-[380px]:max-w-none text-right">
                     {item.tag}
                   </span>
                 </div>
 
-                <h3 className="font-bold text-lg text-[#121316] tracking-tight leading-snug">
+                <h3 className="font-bold text-xs min-[380px]:text-sm sm:text-base md:text-lg text-[#121316] tracking-tight leading-tight sm:leading-snug">
                   {item.title}
                 </h3>
 
-                <p className="text-xs text-neutral-600 mt-3 leading-relaxed">
+                <p className="text-[10.5px] min-[380px]:text-[11px] sm:text-xs text-neutral-600 mt-1.5 sm:mt-2 md:mt-3 leading-snug sm:leading-relaxed font-normal">
                   {item.description}
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-black/[0.04] flex items-center justify-between">
-                <span className="text-xs font-mono font-semibold text-neutral-600">
+              <div className="mt-3 sm:mt-4 md:mt-6 pt-2.5 sm:pt-3 md:pt-4 border-t border-black/[0.04] flex items-center justify-between">
+                <span className="text-[9px] min-[380px]:text-[10px] md:text-xs font-mono font-semibold text-neutral-600">
                   PILLAR // 0{index + 1}
                 </span>
                 <span
                   style={{ backgroundColor: item.color }}
-                  className="w-2 h-2 rounded-full"
+                  className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full shrink-0"
                 />
               </div>
             </HoverCard>

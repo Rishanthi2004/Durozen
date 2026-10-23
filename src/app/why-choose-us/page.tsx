@@ -115,13 +115,13 @@ export default function WhyChooseUsPage() {
             </div>
           </FadeIn>
 
-          {/* Benefits Grid */}
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+          {/* Benefits Grid (Compact 2-column grid on mobile, standard on md/lg) */}
+          <StaggerContainer className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-20">
             {benefits.map((item, idx) => (
               <StaggerItem key={item.title}>
                 <HoverCard
                   accent={item.color}
-                  className="h-full bg-white rounded-3xl p-7 border border-black/[0.06] shadow-sm hover:shadow-[0_16px_36px_rgba(0,0,0,0.06)] flex flex-col justify-between relative overflow-hidden group"
+                  className="h-full bg-white rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 md:p-7 border border-black/[0.06] shadow-sm hover:shadow-[0_16px_36px_rgba(0,0,0,0.06)] flex flex-col justify-between relative overflow-hidden group"
                 >
                   <div
                     style={{ backgroundColor: item.color }}
@@ -129,34 +129,36 @@ export default function WhyChooseUsPage() {
                   />
 
                   <div>
-                    <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center justify-between mb-3 sm:mb-4 md:mb-6">
                       <div
                         style={{ backgroundColor: item.color }}
-                        className="w-11 h-11 rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform"
+                        className="w-8 h-8 min-[380px]:w-9 min-[380px]:h-9 md:w-11 md:h-11 rounded-xl md:rounded-2xl flex items-center justify-center shadow-sm shrink-0 group-hover:scale-105 transition-transform"
                       >
-                        {item.icon}
+                        <div className="scale-75 md:scale-100 flex items-center justify-center">
+                          {item.icon}
+                        </div>
                       </div>
-                      <span className="text-xs font-mono font-bold text-neutral-400">
+                      <span className="text-[10px] md:text-xs font-mono font-bold text-neutral-400">
                         0{idx + 1}
                       </span>
                     </div>
 
-                    <h2 className="font-bold text-lg text-[#121316] tracking-tight mb-2">
+                    <h2 className="font-bold text-xs min-[380px]:text-sm sm:text-base md:text-lg text-[#121316] tracking-tight mb-1 sm:mb-2 leading-tight">
                       {item.title}
                     </h2>
 
-                    <p className="text-xs font-semibold text-neutral-800 mb-2 leading-snug">
+                    <p className="text-[10px] min-[380px]:text-[11px] sm:text-xs font-semibold text-neutral-800 mb-1 sm:mb-2 leading-snug">
                       {item.summary}
                     </p>
 
-                    <p className="text-xs text-neutral-600 leading-relaxed font-normal">
+                    <p className="text-[10px] min-[380px]:text-[11px] sm:text-xs text-neutral-600 leading-snug sm:leading-relaxed font-normal">
                       {item.description}
                     </p>
                   </div>
 
-                  <div className="mt-6 pt-4 border-t border-black/[0.04] flex items-center gap-2 text-xs font-semibold text-[#549B31]">
-                    <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
-                    <span>Guaranteed Principle</span>
+                  <div className="mt-3 sm:mt-4 md:mt-6 pt-2.5 sm:pt-3 md:pt-4 border-t border-black/[0.04] flex items-center gap-1.5 text-[10px] min-[380px]:text-xs font-semibold text-[#549B31]">
+                    <CheckCircle2 className="w-3 h-3 md:w-3.5 md:h-3.5 shrink-0" />
+                    <span className="truncate">Guaranteed Principle</span>
                   </div>
                 </HoverCard>
               </StaggerItem>

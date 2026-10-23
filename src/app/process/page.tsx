@@ -142,13 +142,13 @@ export default function ProcessPage() {
             </div>
           </FadeIn>
 
-          {/* Process Grid */}
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+          {/* Process Grid (Compact 2-column grid on mobile, standard on md/lg) */}
+          <StaggerContainer className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-8 mb-20">
             {steps.map((step) => (
               <StaggerItem key={step.stepNumber}>
                 <HoverCard
                   accent={step.color}
-                  className="h-full bg-white rounded-3xl p-8 border border-black/[0.07] shadow-sm hover:shadow-[0_16px_36px_rgba(0,0,0,0.06)] flex flex-col justify-between relative overflow-hidden group"
+                  className="h-full bg-white rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 md:p-8 border border-black/[0.07] shadow-sm hover:shadow-[0_16px_36px_rgba(0,0,0,0.06)] flex flex-col justify-between relative overflow-hidden group"
                 >
                   <div
                     style={{ backgroundColor: step.color }}
@@ -156,41 +156,43 @@ export default function ProcessPage() {
                   />
 
                   <div>
-                    <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center justify-between mb-3 sm:mb-4 md:mb-6">
                       <div
                         style={{ backgroundColor: step.color }}
-                        className="w-11 h-11 rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform"
+                        className="w-8 h-8 min-[380px]:w-9 min-[380px]:h-9 md:w-11 md:h-11 rounded-xl md:rounded-2xl flex items-center justify-center shadow-sm shrink-0 group-hover:scale-105 transition-transform"
                       >
-                        {step.icon}
+                        <div className="scale-75 md:scale-100 flex items-center justify-center">
+                          {step.icon}
+                        </div>
                       </div>
-                      <span className="text-2xl font-black tracking-tight text-neutral-300 group-hover:text-[#121316] transition-colors">
+                      <span className="text-lg min-[380px]:text-xl md:text-2xl font-black tracking-tight text-neutral-300 group-hover:text-[#121316] transition-colors">
                         {step.stepNumber}
                       </span>
                     </div>
 
                     <span
                       style={{ color: step.color }}
-                      className="text-[10px] font-bold uppercase tracking-wider block mb-1"
+                      className="text-[9px] min-[380px]:text-[10px] font-bold uppercase tracking-wider block mb-1"
                     >
                       PHASE {step.stepNumber}
                     </span>
 
-                    <h2 className="text-xl font-bold text-[#121316] tracking-tight mb-2">
+                    <h2 className="text-xs min-[380px]:text-sm sm:text-base md:text-xl font-bold text-[#121316] tracking-tight mb-1 sm:mb-2 leading-tight">
                       {step.title}
                     </h2>
 
-                    <p className="text-xs font-semibold text-neutral-800 mb-3 leading-snug">
+                    <p className="text-[10px] min-[380px]:text-[11px] sm:text-xs font-semibold text-neutral-800 mb-1.5 sm:mb-3 leading-snug">
                       {step.summary}
                     </p>
 
-                    <p className="text-xs text-neutral-600 leading-relaxed font-normal">
+                    <p className="text-[10px] min-[380px]:text-[11px] sm:text-xs text-neutral-600 leading-snug sm:leading-relaxed font-normal">
                       {step.description}
                     </p>
                   </div>
 
-                  <div className="mt-6 pt-4 border-t border-black/[0.05] flex items-center justify-between text-xs font-semibold text-neutral-500">
-                    <span>Durozen Standard</span>
-                    <span style={{ color: step.color }}>✓ Active Gate</span>
+                  <div className="mt-3 sm:mt-4 md:mt-6 pt-2.5 sm:pt-3 md:pt-4 border-t border-black/[0.05] flex items-center justify-between text-[10px] min-[380px]:text-xs font-semibold text-neutral-500">
+                    <span className="truncate">Durozen Standard</span>
+                    <span style={{ color: step.color }} className="shrink-0 ml-1">✓ Active</span>
                   </div>
                 </HoverCard>
               </StaggerItem>

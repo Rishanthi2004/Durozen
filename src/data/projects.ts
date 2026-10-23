@@ -26,15 +26,15 @@ export const projectsData: ProjectItem[] = [
     sector: "Construction & Real Estate",
     year: "2024",
     summary:
-      "Next-generation digital property experience platform featuring interactive 3D site walkthroughs, dynamic site plan exploration, instant quotation generation, and automated CRM marketing.",
+      "Interactive 3D property experience platform with spatial site exploration, instant quotation generation, and automated CRM pipelines.",
     challenge:
-      "Traditional static brochures failed to convey spatial dimensions of construction projects, causing longer sales cycles and lower digital lead qualification.",
+      "Static brochures failed to convey spatial scale, causing slow sales cycles and low lead qualification.",
     solution:
-      "Engineered an interactive Three.js 3D visualization platform with dynamic floor plan configurators, headless CMS content delivery, and automated quote generation pipelines.",
+      "Built a Three.js 3D visualization platform with dynamic plan configurators, headless CMS, and instant quote generation.",
     impactMetrics: [
-      { value: "3D", label: "Interactive Spatial Walkthroughs" },
-      { value: "Real-Time", label: "Instant Quote Generation" },
-      { value: "Omnichannel", label: "Automated CRM Lead Routing" },
+      { value: "3D", label: "Spatial Walkthroughs" },
+      { value: "Real-Time", label: "Instant Quotes" },
+      { value: "Omnichannel", label: "Automated CRM" },
     ],
     features: [
       "Interactive 3D architectural walkthroughs",
@@ -57,15 +57,15 @@ export const projectsData: ProjectItem[] = [
     sector: "Fintech & Financial Services",
     year: "2024",
     summary:
-      "Regulated financial chit fund management platform supporting live digital bidding auctions, automated dividend distribution, subscriber ledger accounting, and strict compliance management.",
+      "Regulated fintech platform supporting real-time digital auctions, automated dividend distribution, and compliant ledger accounting.",
     challenge:
-      "Paper-based chit ledgers and physical auction attendance restricted subscriber participation and increased audit overhead.",
+      "Paper ledgers and physical auctions limited subscriber reach and created substantial audit overhead.",
     solution:
-      "Built a secure microservices architecture with Spring Boot and PostgreSQL featuring real-time auction bidding, automated subscriber dividend math, and audit-ready compliance reporting.",
+      "Engineered secure microservices with real-time bidding, automated dividend math, and compliance reporting.",
     impactMetrics: [
-      { value: "Live", label: "Real-Time Digital Auctions" },
-      { value: "100%", label: "Dividend Distribution Accuracy" },
-      { value: "Statutory", label: "Full Regulatory Compliance" },
+      { value: "Live", label: "Digital Auctions" },
+      { value: "100%", label: "Dividend Accuracy" },
+      { value: "Statutory", label: "Full Compliance" },
     ],
     features: [
       "Live digital bidding auctions with instant updates",
@@ -88,15 +88,15 @@ export const projectsData: ProjectItem[] = [
     sector: "Logistics & Global Trade",
     year: "2023",
     summary:
-      "Global freight and container logistics platform featuring live container tracking, freight quotation engines, automated customs documentation, and supplier compliance monitoring.",
+      "Global freight and logistics platform featuring live container tracking, automated customs clearance, and instant quotation engines.",
     challenge:
-      "Cross-border shipping coordination across disparate carriers suffered from communication delays, tracking blackouts, and manual customs clearance paperwork.",
+      "Carrier coordination across borders suffered from tracking blackouts and slow manual customs paperwork.",
     solution:
-      "Architected an event-driven Kafka and Go backend with a responsive Next.js frontend, integrating real-time vessel telemetry, automated Bill of Lading generation, and AWS cloud resilience.",
+      "Architected an event-driven telemetry platform with automated shipping docs and AWS cloud resilience.",
     impactMetrics: [
-      { value: "24/7", label: "Live Container Tracking" },
-      { value: "Automated", label: "Customs Documentation Engine" },
-      { value: "Global", label: "Freight Quotation Accuracy" },
+      { value: "24/7", label: "Live Tracking" },
+      { value: "Automated", label: "Customs Clearance" },
+      { value: "Global", label: "Freight Precision" },
     ],
     features: [
       "Live international container tracking telemetry",

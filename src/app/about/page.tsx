@@ -229,38 +229,43 @@ export default function AboutPage() {
               </div>
             </FadeIn>
 
-            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <StaggerContainer className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
               {pillars.map((pillar, idx) => (
                 <StaggerItem key={pillar.title}>
-                  <HoverCard accent={pillar.color} className="h-full bg-white rounded-3xl p-7 border border-black/[0.06] shadow-sm flex flex-col justify-between group">
+                  <HoverCard
+                    accent={pillar.color}
+                    className="h-full bg-white rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 md:p-7 border border-black/[0.06] shadow-sm flex flex-col justify-between group"
+                  >
                     <div>
-                      <div className="flex items-center justify-between mb-6">
+                      <div className="flex items-center justify-between mb-3 sm:mb-4 md:mb-6">
                         <div
                           style={{ backgroundColor: pillar.color }}
-                          className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform"
+                          className="w-8 h-8 min-[380px]:w-9 min-[380px]:h-9 md:w-12 md:h-12 rounded-xl md:rounded-2xl flex items-center justify-center shadow-sm shrink-0 group-hover:scale-105 transition-transform"
                         >
-                          {pillar.icon}
+                          <div className="scale-75 md:scale-100 flex items-center justify-center">
+                            {pillar.icon}
+                          </div>
                         </div>
-                        <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-neutral-600">
+                        <span className="text-[9px] min-[380px]:text-[10px] md:text-xs font-bold uppercase tracking-wider text-neutral-600 truncate max-w-[70px] min-[380px]:max-w-none text-right">
                           {pillar.tag}
                         </span>
                       </div>
 
-                      <h3 className="font-bold text-lg text-[#121316] tracking-tight leading-snug">
+                      <h3 className="font-bold text-xs min-[380px]:text-sm sm:text-base md:text-lg text-[#121316] tracking-tight leading-tight sm:leading-snug">
                         {pillar.title}
                       </h3>
-                      <p className="text-xs text-neutral-600 mt-3 leading-relaxed">
+                      <p className="text-[10.5px] min-[380px]:text-[11px] sm:text-xs text-neutral-600 mt-1.5 sm:mt-2 md:mt-3 leading-snug sm:leading-relaxed">
                         {pillar.description}
                       </p>
                     </div>
 
-                    <div className="mt-6 pt-4 border-t border-black/[0.04] flex items-center justify-between">
-                      <span className="text-[10px] font-mono font-semibold text-neutral-500">
+                    <div className="mt-3 sm:mt-4 md:mt-6 pt-2.5 sm:pt-3 md:pt-4 border-t border-black/[0.04] flex items-center justify-between">
+                      <span className="text-[9px] min-[380px]:text-[10px] md:text-xs font-mono font-semibold text-neutral-500">
                         PILLAR // 0{idx + 1}
                       </span>
                       <span
                         style={{ backgroundColor: pillar.color }}
-                        className="w-2 h-2 rounded-full"
+                        className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full shrink-0"
                       />
                     </div>
                   </HoverCard>

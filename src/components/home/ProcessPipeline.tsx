@@ -73,42 +73,44 @@ export default function ProcessPipeline() {
           </div>
         </FadeIn>
 
-        {/* 4 Pipeline Steps */}
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+        {/* 4 Pipeline Steps (Compact 2-column grid on mobile, standard on md/lg) */}
+        <StaggerContainer className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 relative">
           {steps.map((step, idx) => (
             <HoverCard
               key={step.num}
               variants={defaultItemVariants}
               accent={step.color}
-              className="h-full bg-white rounded-3xl p-7 border border-black/[0.06] shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex flex-col justify-between relative group"
+              className="h-full bg-white rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 md:p-7 border border-black/[0.06] shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex flex-col justify-between relative group"
             >
               <div>
-                <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center justify-between mb-3 sm:mb-4 md:mb-6">
                   <div
                     style={{ backgroundColor: step.color }}
-                    className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-sm"
+                    className="w-8 h-8 min-[380px]:w-9 min-[380px]:h-9 md:w-12 md:h-12 rounded-xl md:rounded-2xl flex items-center justify-center shadow-sm shrink-0"
                   >
-                    {step.icon}
+                    <div className="scale-75 md:scale-100 flex items-center justify-center">
+                      {step.icon}
+                    </div>
                   </div>
-                  <span className="text-2xl font-black tracking-tighter text-neutral-500 group-hover:text-[#121316] transition-colors">
+                  <span className="text-lg min-[380px]:text-xl md:text-2xl font-black tracking-tighter text-neutral-400 group-hover:text-[#121316] transition-colors">
                     {step.num}
                   </span>
                 </div>
 
-                <span className="text-xs font-semibold uppercase tracking-wider text-neutral-600">
+                <span className="text-[9px] min-[380px]:text-[10px] md:text-xs font-semibold uppercase tracking-wider text-neutral-600 block">
                   {step.tag}
                 </span>
 
-                <h3 className="font-bold text-lg text-[#121316] mt-1.5 tracking-tight leading-snug">
+                <h3 className="font-bold text-xs min-[380px]:text-sm sm:text-base md:text-lg text-[#121316] mt-1 sm:mt-1.5 tracking-tight leading-tight sm:leading-snug">
                   {step.title}
                 </h3>
 
-                <p className="text-xs text-neutral-600 mt-3 leading-relaxed">
+                <p className="text-[10.5px] min-[380px]:text-[11px] sm:text-xs text-neutral-600 mt-1.5 sm:mt-2 md:mt-3 leading-snug sm:leading-relaxed font-normal">
                   {step.description}
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-black/[0.04]">
+              <div className="mt-3 sm:mt-4 md:mt-6 pt-2.5 sm:pt-3 md:pt-4 border-t border-black/[0.04]">
                 <div className="w-full bg-[#FAF9F6] h-1.5 rounded-full overflow-hidden">
                   <div
                     style={{
