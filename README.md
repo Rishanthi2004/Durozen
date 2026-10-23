@@ -1,36 +1,105 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Durozen Technologies Website
 
-## Getting Started
+The official website for Durozen Technologies Pvt. Ltd., built with Next.js and
+designed to present the company's software engineering, cloud, AI, and product
+development capabilities.
 
-First, run the development server:
+## Tech stack
+
+- [Next.js 16](https://nextjs.org/) with the App Router
+- React 19 and TypeScript
+- Tailwind CSS 4 with the Tailwind Turbopack loader
+- Framer Motion for animations
+- Lucide React for icons
+
+## Prerequisites
+
+- [Bun](https://bun.sh/) (recommended) or Node.js 20+
+- Git
+
+## Getting started
+
+Clone the repository and install dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/durozen-technologies/Durozen_Website.git
+cd Durozen_Website
+bun install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Start the development server:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+bun run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open [http://localhost:3000](http://localhost:3000) in your browser. The
+development server supports hot reloading as files change.
 
-## Learn More
+### npm alternative
 
-To learn more about Next.js, take a look at the following resources:
+The repository also includes `package-lock.json`, so npm can be used instead
+of Bun:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm install
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Use the same command substitution for the other scripts:
 
-## Deploy on Vercel
+```bash
+npm run lint
+npm run build
+npm run start
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Available scripts
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Command | Description |
+| --- | --- |
+| `bun run dev` | Start the local development server |
+| `bun run lint` | Run ESLint |
+| `bun run build` | Create a production build |
+| `bun run start` | Serve the production build locally |
+
+## Project structure
+
+```text
+src/
+├── app/                 # Routes, layouts, metadata, and global styles
+├── components/          # Reusable page sections and UI components
+├── data/                # Structured content for services, projects, and gallery
+└── utils/               # Shared utility functions
+
+public/                  # Static images, icons, and other public assets
+scripts/                 # Asset and branding utility scripts
+image/                   # Source image assets
+```
+
+The site uses the Next.js App Router. Main content pages live under
+`src/app/`, while dynamic routes such as project and service details use
+bracketed route segments (for example, `src/app/services/[slug]`).
+
+## Production build
+
+Validate the application with the production build:
+
+```bash
+bun run lint
+bun run build
+```
+
+After a successful build, start it with:
+
+```bash
+bun run start
+```
+
+## Deployment
+
+This is a standard Next.js application and can be deployed to
+[Vercel](https://vercel.com/) or another platform that supports Node.js
+servers. Configure the project to run `bun run build` during deployment and
+`bun run start` to serve the generated application when using a persistent
+server.
