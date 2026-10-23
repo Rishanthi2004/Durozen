@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Code2, Layers, Cpu, CheckCircle2, GitBranch, Terminal, Shield, Zap } from "lucide-react";
+import { Code2, Layers, Cpu, CheckCircle2, GitBranch, Shield, Zap } from "lucide-react";
 
 export default function SoftwareEngineeringAnimation() {
   return (

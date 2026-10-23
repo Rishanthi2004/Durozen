@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Sparkles, Users, Cpu, Compass, HeartHandshake, Lightbulb } from "lucide-react";
+import { Sparkles, Users, Compass, HeartHandshake, Lightbulb } from "lucide-react";
 
 export default function HumanInnovationAnimation() {
   return (

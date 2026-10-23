@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Smartphone, Layout, ArrowUpRight, TrendingUp, Check, MousePointer2 } from "lucide-react";
+import { Smartphone, Layout, ArrowUpRight, TrendingUp, MousePointer2 } from "lucide-react";
 
 export default function DigitalProductAnimation() {
   return (

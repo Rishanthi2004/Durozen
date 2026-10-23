@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { BookOpen, Sparkles, Brain, FileText, ArrowRight, Binary } from "lucide-react";
+import { Sparkles, Brain, FileText } from "lucide-react";
 
 export default function KnowledgeAiAnimation() {
   return (

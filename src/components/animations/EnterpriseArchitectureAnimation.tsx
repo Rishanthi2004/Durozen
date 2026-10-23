@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Network, Server, ShieldCheck, Database, ArrowUpRight, Activity } from "lucide-react";
+import { Network, Server, ShieldCheck, Database } from "lucide-react";
 
 export default function EnterpriseArchitectureAnimation() {
   return (

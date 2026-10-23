@@ -35,7 +35,7 @@ export default function ContactPage() {
           headers: {
             "Content-Type": "text/plain;charset=utf-8",
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify({ ...formData, type: "contact" }),
           mode: "no-cors",
         });
         setSubmitted(true);

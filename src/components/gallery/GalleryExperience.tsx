@@ -59,13 +59,6 @@ export default function GalleryExperience() {
     });
   }, [selectedCategory, searchQuery]);
 
-  // Keep currentIndex in bounds when filtered items change
-  useEffect(() => {
-    if (currentIndex >= filteredItems.length) {
-      setCurrentIndex(Math.max(0, filteredItems.length - 1));
-    }
-  }, [filteredItems.length, currentIndex]);
-
   // Show transient toast
   const showToast = useCallback((msg: string) => {
     setToastMessage(msg);
@@ -73,6 +66,39 @@ export default function GalleryExperience() {
       setToastMessage((current) => (current === msg ? null : current));
     }, 2800);
   }, []);
+
+  const safeIndex =
+    filteredItems.length === 0
+      ? 0
+      : currentIndex >= filteredItems.length
+      ? filteredItems.length - 1
+      : currentIndex;
+
+  const handlePrev = useCallback(() => {
+    setCurrentIndex((prev) => (prev > 0 ? prev - 1 : filteredItems.length - 1));
+  }, [filteredItems.length]);
+
+  const handleNext = useCallback(() => {
+    setCurrentIndex((prev) => (prev < filteredItems.length - 1 ? prev + 1 : 0));
+  }, [filteredItems.length]);
+
+  const handleLightboxPrev = useCallback(() => {
+    if (filteredItems.length === 0) return;
+    setLightboxIndex((prev) => {
+      const newIdx = prev > 0 ? prev - 1 : filteredItems.length - 1;
+      setLightboxItem(filteredItems[newIdx]);
+      return newIdx;
+    });
+  }, [filteredItems]);
+
+  const handleLightboxNext = useCallback(() => {
+    if (filteredItems.length === 0) return;
+    setLightboxIndex((prev) => {
+      const newIdx = prev < filteredItems.length - 1 ? prev + 1 : 0;
+      setLightboxItem(filteredItems[newIdx]);
+      return newIdx;
+    });
+  }, [filteredItems]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -92,17 +118,9 @@ export default function GalleryExperience() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [lightboxItem, viewMode, filteredItems.length, currentIndex]);
+  }, [lightboxItem, viewMode, filteredItems.length, handleLightboxPrev, handleLightboxNext, handlePrev, handleNext]);
 
-  const handlePrev = useCallback(() => {
-    setCurrentIndex((prev) => (prev > 0 ? prev - 1 : filteredItems.length - 1));
-  }, [filteredItems.length]);
-
-  const handleNext = useCallback(() => {
-    setCurrentIndex((prev) => (prev < filteredItems.length - 1 ? prev + 1 : 0));
-  }, [filteredItems.length]);
-
-  const activeItem = filteredItems[currentIndex] || filteredItems[0];
+  const activeItem = filteredItems[safeIndex] || filteredItems[0];
 
   const handleShare = async (item?: GalleryItem) => {
     const target = item || activeItem;
@@ -143,22 +161,6 @@ export default function GalleryExperience() {
     const idx = filteredItems.findIndex((it) => it.id === item.id);
     setLightboxIndex(idx >= 0 ? idx : 0);
     setLightboxItem(item);
-  };
-
-  const handleLightboxPrev = () => {
-    if (filteredItems.length === 0) return;
-    const newIdx =
-      lightboxIndex > 0 ? lightboxIndex - 1 : filteredItems.length - 1;
-    setLightboxIndex(newIdx);
-    setLightboxItem(filteredItems[newIdx]);
-  };
-
-  const handleLightboxNext = () => {
-    if (filteredItems.length === 0) return;
-    const newIdx =
-      lightboxIndex < filteredItems.length - 1 ? lightboxIndex + 1 : 0;
-    setLightboxIndex(newIdx);
-    setLightboxItem(filteredItems[newIdx]);
   };
 
   const handleDownload = (item: GalleryItem) => {

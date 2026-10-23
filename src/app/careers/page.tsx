@@ -16,6 +16,8 @@ import InnovationCollaborationAnimation from "@/components/animations/Innovation
 
 export default function CareersPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -25,9 +27,38 @@ export default function CareersPage() {
     message: "",
   });
 
-  const handleEnquiry = (e: React.FormEvent) => {
+  const handleEnquiry = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+    setErrorMessage(null);
+
+    const scriptUrl = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL || "";
+
+    if (scriptUrl) {
+      try {
+        await fetch(scriptUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8",
+          },
+          body: JSON.stringify({ ...formData, type: "career" }),
+          mode: "no-cors",
+        });
+        setSubmitted(true);
+      } catch (err) {
+        console.error("Error submitting career application:", err);
+        setErrorMessage(
+          "An unexpected error occurred while sending your application. Please try again or email us directly at sachinn2413@gmail.com."
+        );
+      } finally {
+        setIsSubmitting(false);
+      }
+    } else {
+      setTimeout(() => {
+        setIsSubmitting(false);
+        setSubmitted(true);
+      }, 600);
+    }
   };
 
   const disciplines = [
@@ -301,12 +332,28 @@ export default function CareersPage() {
                     />
                   </div>
 
+                  {errorMessage && (
+                    <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs leading-relaxed">
+                      {errorMessage}
+                    </div>
+                  )}
+
                   <button
                     type="submit"
-                    className="w-full py-4 rounded-full bg-[#DE2F28] text-white font-bold text-sm tracking-tight shadow-md hover:bg-[#c9241e] transition-colors flex items-center justify-center gap-2"
+                    disabled={isSubmitting}
+                    className="w-full py-4 rounded-full bg-[#DE2F28] text-white font-bold text-sm tracking-tight shadow-md hover:bg-[#c9241e] transition-colors flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    <Send className="w-4 h-4" />
-                    <span>Submit Career Enquiry</span>
+                    {isSubmitting ? (
+                      <span className="inline-flex items-center gap-2">
+                        <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        Submitting Application...
+                      </span>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4" />
+                        <span>Submit Career Enquiry</span>
+                      </>
+                    )}
                   </button>
                 </form>
               )}

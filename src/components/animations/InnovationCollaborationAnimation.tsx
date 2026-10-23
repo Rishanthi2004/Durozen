@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Users2, Rocket, Award, Heart, Sparkles, TrendingUp } from "lucide-react";
+import { Rocket, Award, Heart, TrendingUp } from "lucide-react";
 
 export default function InnovationCollaborationAnimation() {
   return (
