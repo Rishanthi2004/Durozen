@@ -24,6 +24,8 @@ export default function BlogPage() {
 
   const categories = [
     "All",
+    "Enterprise IT & AI",
+    "Software Engineering",
     "Autonomous AI",
     "Cloud Architecture",
     "Distributed Systems",
@@ -31,6 +33,46 @@ export default function BlogPage() {
   ];
 
   const blogPosts: BlogPost[] = [
+    {
+      id: "best-it-company-in-namakkal-enterprise-software-ai-cloud",
+      title: "Why Durozen is the Best IT Company in Namakkal for Enterprise Software, AI & Cloud",
+      summary:
+        "How Durozen Technologies is setting a new benchmark among IT companies in Namakkal by delivering Silicon Valley-grade cloud architecture, autonomous AI, and mission-critical software.",
+      category: "Enterprise IT & AI",
+      readTime: "10 min read",
+      date: "November 2026",
+      accentColor: "#24419E",
+    },
+    {
+      id: "software-company-in-namakkal-custom-web-mobile-erp-development",
+      title: "Choosing the Right Software Company in Namakkal: A Guide to Custom Software & App Development",
+      summary:
+        "Everything founders and business leaders need to know before hiring a software development company in Namakkal—from tech stack selection and security to ROI and source code ownership.",
+      category: "Software Engineering",
+      readTime: "11 min read",
+      date: "November 2026",
+      accentColor: "#DE2F28",
+    },
+    {
+      id: "web-development-company-in-namakkal-nextjs-edge-architecture",
+      title: "Engineering Sub-Second Web Platforms: What Sets the Best Web Development Company in Namakkal Apart",
+      summary:
+        "Why modern businesses are moving beyond slow, template-based websites to React Server Components, edge caching, and API-first web architectures engineered for speed and conversion.",
+      category: "Cloud Architecture",
+      readTime: "10 min read",
+      date: "November 2026",
+      accentColor: "#549B31",
+    },
+    {
+      id: "mobile-app-development-company-in-namakkal-ios-android-ai",
+      title: "Building AI-Native Android & iOS Apps: Inside a Top Mobile App Development Company in Namakkal",
+      summary:
+        "How Durozen architects 60-120 FPS cross-platform mobile applications with offline-first sync, real-time telemetry, and embedded AI agents for enterprises and startups.",
+      category: "Autonomous AI",
+      readTime: "11 min read",
+      date: "November 2026",
+      accentColor: "#F4A81E",
+    },
     {
       id: "how-to-automate-repetitive-business-processes",
       title: "How to Automate Repetitive Business Processes: A Practical Guide",
