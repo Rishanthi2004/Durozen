@@ -78,6 +78,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // High-Value SEO Blog Pages (Namakkal Series)
   const seoBlogRoutes: MetadataRoute.Sitemap = [
     {
+      url: `${baseUrl}/blog/best-it-company-in-namakkal-cloud-ai-adoption`,
+      lastModified: currentDate,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/blog/software-company-in-namakkal-custom-erp-crm-saas`,
+      lastModified: currentDate,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/blog/web-development-company-in-namakkal-b2b-portals-ecommerce`,
+      lastModified: currentDate,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/blog/mobile-app-development-company-in-namakkal-enterprise-field-consumer`,
+      lastModified: currentDate,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/blog/best-it-company-in-namakkal-enterprise-software-ai-cloud`,
       lastModified: currentDate,
       changeFrequency: "weekly",

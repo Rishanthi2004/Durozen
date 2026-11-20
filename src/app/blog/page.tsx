@@ -26,6 +26,10 @@ export default function BlogPage() {
     "All",
     "Enterprise IT & AI",
     "Software Engineering",
+    "Custom ERP & SaaS",
+    "Cloud & AI Transformation",
+    "Web Platforms & Commerce",
+    "Enterprise & Consumer Mobile",
     "Autonomous AI",
     "Cloud Architecture",
     "Distributed Systems",
@@ -33,6 +37,46 @@ export default function BlogPage() {
   ];
 
   const blogPosts: BlogPost[] = [
+    {
+      id: "best-it-company-in-namakkal-cloud-ai-adoption",
+      title: "How the Best IT Company in Namakkal Accelerates Enterprise Cloud & AI Adoption",
+      summary:
+        "A practical blueprint for modernizing legacy on-premise systems, reducing cloud infrastructure waste, and deploying deterministic AI workflows without operational downtime.",
+      category: "Cloud & AI Transformation",
+      readTime: "10 min read",
+      date: "November 2026",
+      accentColor: "#24419E",
+    },
+    {
+      id: "software-company-in-namakkal-custom-erp-crm-saas",
+      title: "Custom ERP, CRM & SaaS Development: Why Partner with a Software Company in Namakkal",
+      summary:
+        "How high-growth businesses and SaaS founders build bespoke internal platforms and commercial software products with lower TCO, faster iteration, and 100% source code control.",
+      category: "Custom ERP & SaaS",
+      readTime: "11 min read",
+      date: "November 2026",
+      accentColor: "#DE2F28",
+    },
+    {
+      id: "web-development-company-in-namakkal-b2b-portals-ecommerce",
+      title: "High-Converting B2B Portals & E-Commerce: Web Development Company in Namakkal",
+      summary:
+        "How custom Next.js storefronts, real-time B2B dealer portals, and automated checkout pipelines drive higher conversion rates and effortless ERP synchronization.",
+      category: "Web Platforms & Commerce",
+      readTime: "10 min read",
+      date: "November 2026",
+      accentColor: "#549B31",
+    },
+    {
+      id: "mobile-app-development-company-in-namakkal-enterprise-field-consumer",
+      title: "Enterprise Field Apps & Consumer Mobile Products: Mobile App Development Company in Namakkal",
+      summary:
+        "From GPS-verified field sales apps that work without cellular signal to 5-star consumer marketplaces—how Durozen engineers resilient mobile experiences from prototype to Play Store scale.",
+      category: "Enterprise & Consumer Mobile",
+      readTime: "11 min read",
+      date: "November 2026",
+      accentColor: "#F4A81E",
+    },
     {
       id: "best-it-company-in-namakkal-enterprise-software-ai-cloud",
       title: "Why Durozen is the Best IT Company in Namakkal for Enterprise Software, AI & Cloud",
