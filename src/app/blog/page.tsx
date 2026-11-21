@@ -24,6 +24,10 @@ export default function BlogPage() {
 
   const categories = [
     "All",
+    "Enterprise IT Leadership",
+    "UI/UX & Web Design",
+    "E-Commerce Engineering",
+    "Autonomous AI & Automation",
     "Enterprise IT & AI",
     "Software Engineering",
     "Custom ERP & SaaS",
@@ -37,6 +41,46 @@ export default function BlogPage() {
   ];
 
   const blogPosts: BlogPost[] = [
+    {
+      id: "top-it-companies-in-namakkal-enterprise-digital-transformation",
+      title: "Top IT Companies in Namakkal: How Durozen Leads Enterprise Digital Transformation",
+      summary:
+        "An objective breakdown of what distinguishes true systems-engineering leaders among IT companies in Namakkal—from cloud architecture and applied AI to long-term SLA reliability.",
+      category: "Enterprise IT Leadership",
+      readTime: "10 min read",
+      date: "November 2026",
+      accentColor: "#24419E",
+    },
+    {
+      id: "website-design-company-in-namakkal-ui-ux-seo",
+      title: "Website Design Company in Namakkal: Crafting High-Converting, SEO-First Digital Experiences",
+      summary:
+        "Why modern businesses need more than a pretty template—combining conversion-focused UI/UX design, mobile-first ergonomics, and technical SEO architecture to turn visitors into qualified leads.",
+      category: "UI/UX & Web Design",
+      readTime: "10 min read",
+      date: "November 2026",
+      accentColor: "#549B31",
+    },
+    {
+      id: "ecommerce-website-development-in-namakkal",
+      title: "Ecommerce Website Development in Namakkal: Building Fast, Scalable Online Stores",
+      summary:
+        "From direct-to-consumer (D2C) retail brands to multi-vendor marketplaces—how custom e-commerce architecture boosts checkout conversions, automates GST billing, and scales effortlessly.",
+      category: "E-Commerce Engineering",
+      readTime: "11 min read",
+      date: "November 2026",
+      accentColor: "#DE2F28",
+    },
+    {
+      id: "ai-automation-software-company-in-namakkal",
+      title: "AI & Business Automation Software Company in Namakkal: Reclaiming Operational Speed",
+      summary:
+        "How forward-thinking businesses eliminate repetitive manual data entry, automate customer lead pipelines, and deploy custom AI assistants grounded in verified company data.",
+      category: "Autonomous AI & Automation",
+      readTime: "11 min read",
+      date: "November 2026",
+      accentColor: "#F4A81E",
+    },
     {
       id: "best-it-company-in-namakkal-cloud-ai-adoption",
       title: "How the Best IT Company in Namakkal Accelerates Enterprise Cloud & AI Adoption",
