@@ -24,6 +24,10 @@ export default function BlogPage() {
 
   const categories = [
     "All",
+    "Enterprise ERP & CRM",
+    "Cloud & DevOps Engineering",
+    "Product Design & Engineering",
+    "Systems Integration & Consulting",
     "Enterprise IT Leadership",
     "UI/UX & Web Design",
     "E-Commerce Engineering",
@@ -41,6 +45,46 @@ export default function BlogPage() {
   ];
 
   const blogPosts: BlogPost[] = [
+    {
+      id: "custom-crm-erp-software-development-company-in-namakkal",
+      title: "Custom CRM & ERP Software Development Company in Namakkal: Unifying Sales, Billing & Inventory",
+      summary:
+        "How growing businesses eliminate disconnected spreadsheets and rigid per-seat SaaS subscriptions with custom-engineered CRM, ERP, and real-time financial ledger systems.",
+      category: "Enterprise ERP & CRM",
+      readTime: "11 min read",
+      date: "November 2026",
+      accentColor: "#DE2F28",
+    },
+    {
+      id: "cloud-engineering-devops-services-company-in-namakkal",
+      title: "Cloud Engineering & DevOps Services Company in Namakkal: Architecting 99.99% Uptime",
+      summary:
+        "How automated CI/CD pipelines, Infrastructure-as-Code, container orchestration, and cloud FinOps keep mission-critical applications fast, secure, and cost-efficient under peak load.",
+      category: "Cloud & DevOps Engineering",
+      readTime: "10 min read",
+      date: "November 2026",
+      accentColor: "#24419E",
+    },
+    {
+      id: "ui-ux-design-product-development-company-in-namakkal",
+      title: "UI/UX Design & Digital Product Development Company in Namakkal: From Concept to Launch",
+      summary:
+        "How user-centered product research, interactive Figma design systems, 3D spatial web interfaces, and rapid MVP engineering turn ambitious ideas into category-leading digital products.",
+      category: "Product Design & Engineering",
+      readTime: "10 min read",
+      date: "November 2026",
+      accentColor: "#549B31",
+    },
+    {
+      id: "api-integration-software-modernization-company-in-namakkal",
+      title: "API Integration & Legacy Software Modernization Company in Namakkal: Connecting Your Digital Ecosystem",
+      summary:
+        "How custom REST/GraphQL API middleware, real-time webhook orchestration, and incremental legacy refactoring eliminate manual data silos without disrupting daily business operations.",
+      category: "Systems Integration & Consulting",
+      readTime: "11 min read",
+      date: "November 2026",
+      accentColor: "#F4A81E",
+    },
     {
       id: "top-it-companies-in-namakkal-enterprise-digital-transformation",
       title: "Top IT Companies in Namakkal: How Durozen Leads Enterprise Digital Transformation",
