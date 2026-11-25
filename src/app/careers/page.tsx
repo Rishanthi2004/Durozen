@@ -131,6 +131,7 @@ export default function CareersPage() {
       payload.append("message", formData.message);
       payload.append("resume", resumeFile);
 
+      // 1. Send multipart payload to backend Nodemailer API (for direct email attachments)
       const res = await fetch("/api/careers", {
         method: "POST",
         body: payload,
@@ -140,6 +141,32 @@ export default function CareersPage() {
 
       if (!res.ok) {
         throw new Error(result?.error || "Failed to submit career application.");
+      }
+
+      // 2. Also forward to Google Apps Script webhook if configured (for Google Sheets & MailApp sync)
+      const scriptUrl = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL || "";
+      if (scriptUrl) {
+        try {
+          await fetch(scriptUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "text/plain;charset=utf-8",
+            },
+            body: JSON.stringify({
+              ...formData,
+              type: "career",
+              resumeName: resumeFile.name,
+              resumeSize: resumeFile.size,
+            }),
+            mode: "no-cors",
+          });
+        } catch (scriptErr) {
+          console.warn("Google Apps Script sync warning:", scriptErr);
+        }
+      }
+
+      if (result?.warning) {
+        console.warn("[Careers]", result.warning);
       }
 
       setSubmitted(true);

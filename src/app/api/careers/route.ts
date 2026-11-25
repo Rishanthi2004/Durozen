@@ -201,7 +201,36 @@ Format: ${fileExtension.toUpperCase()}
 </html>
 `;
 
-    // Check if SMTP credentials are provided
+    // Forward to Google Apps Script webhook if configured in environment
+    const googleScriptUrl =
+      process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL ||
+      process.env.GOOGLE_SCRIPT_URL;
+
+    let googleScriptDispatched = false;
+    if (googleScriptUrl && !googleScriptUrl.includes("YOUR_DEPLOYMENT_ID")) {
+      try {
+        await fetch(googleScriptUrl, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({
+            name,
+            email,
+            phone,
+            discipline,
+            portfolioUrl,
+            message,
+            type: "career",
+            resumeName: originalName,
+            resumeSize: formattedFileSize,
+          }),
+        });
+        googleScriptDispatched = true;
+      } catch (err) {
+        console.warn("[Careers API] Google Apps Script forward error:", err);
+      }
+    }
+
+    // Check if SMTP credentials are provided for Nodemailer
     if (smtpUser && smtpPass) {
       const transporter = nodemailer.createTransport({
         host: smtpHost,
@@ -234,25 +263,31 @@ Format: ${fileExtension.toUpperCase()}
       return NextResponse.json(
         {
           success: true,
-          message: "Career application and resume delivered successfully.",
+          message: "Career application and resume delivered successfully via email.",
+        },
+        { status: 200 }
+      );
+    } else if (googleScriptDispatched) {
+      return NextResponse.json(
+        {
+          success: true,
+          message: "Career application received and forwarded to recruitment system.",
         },
         { status: 200 }
       );
     } else {
-      // Development / preview fallback if SMTP environment variables are not yet populated
-      console.warn(
-        `[Durozen Careers API] SMTP credentials (SMTP_USER / SMTP_PASS) not configured in environment. ` +
-        `Simulating successful dispatch for ${name} <${email}>. Attached resume: ${originalName} (${formattedFileSize}).`
+      console.error(
+        `[Durozen Careers API] SMTP credentials (SMTP_USER / SMTP_PASS) not configured in environment (.env.local). ` +
+        `Cannot deliver email for ${name} <${email}>.`
       );
 
       return NextResponse.json(
         {
-          success: true,
-          message:
-            "Application received successfully (SMTP credentials pending configuration).",
-          warning: "SMTP credentials not configured on server",
+          success: false,
+          error:
+            "Email service is not yet configured on the server. Please add SMTP_USER and SMTP_PASS (e.g. Gmail App Password) to .env.local to send emails.",
         },
-        { status: 200 }
+        { status: 500 }
       );
     }
   } catch (error) {
