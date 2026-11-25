@@ -49,7 +49,7 @@ export default function ProjectsPage() {
                   </h1>
 
                   <p className="mt-6 text-base sm:text-lg text-neutral-600 leading-relaxed font-normal">
-                    Explore real-world software, portals, and cloud solutions engineered by Durozen Technologies for educational institutions, financial funds, real estate, and global commerce.
+                    Explore real-world software, portals, and cloud solutions engineered by Durozen Technologies for educational institutions, financial funds, real estate, retail commerce, and global trade.
                   </p>
                 </FadeIn>
               </div>

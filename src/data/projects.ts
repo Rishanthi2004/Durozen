@@ -142,4 +142,66 @@ export const projectsData: ProjectItem[] = [
     website: "https://knp-bharathimhss.com/",
     image: "/images/projects/knp-bharathi.png",
   },
+  {
+    id: "sri-ganesh-plywoods",
+    slug: "sri-ganesh-plywoods",
+    title: "Sri Ganesh Plywoods & Hardwares",
+    client: "Sri Ganesh Plywoods & Hardwares (SGPH)",
+    sector: "Retail & Enterprise Operations",
+    year: "2024",
+    summary:
+      "Enterprise digital catalog and materials showroom platform delivering interactive technical timber specifications, brand authorizations, and automated quotation dispatch.",
+    challenge:
+      "Managing offline catalogs of 600+ laminate finishes and technical wood grades caused delays for architects and contractors requesting custom material estimates.",
+    solution:
+      "Architected a Next.js digital catalog with structured technical specifications, bilingual localization, and instant omnichannel inquiry routing.",
+    impactMetrics: [
+      { value: "600+", label: "Laminates & Timber Catalog" },
+      { value: "IS:710", label: "Certified Marine Specs" },
+      { value: "Instant", label: "Omnichannel Quotations" },
+    ],
+    features: [
+      "Interactive material catalog & technical specification explorer",
+      "Authorized dealership showcase (Greenply, Asian Paints, Godrej)",
+      "Direct project estimation & instant WhatsApp quotation dispatch",
+      "Bilingual interface architecture for regional trade accessibility",
+      "Responsive layout optimized for on-site contractor mobile devices",
+    ],
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    accentColor: "#24419E", // Durozen Blue
+    featured: false,
+    website: "https://www.sriganeshplywoods.in/",
+    image: "/images/projects/sri-ganesh-plywoods.png",
+  },
+  {
+    id: "sri-krishna-traders",
+    slug: "sri-krishna-traders",
+    title: "Sri Krishna Traders",
+    client: "Sri Krishna Traders",
+    sector: "Retail & Enterprise Operations",
+    year: "2024",
+    summary:
+      "Modern building materials and hardware distribution portal unifying tier-1 electrical, sanitary, plumbing inventories, and on-site delivery coordination.",
+    challenge:
+      "Fragmented physical inventory inquiries across plumbing, electrical, and hardware product lines created dispatch bottlenecks for construction contractors.",
+    solution:
+      "Built a unified commercial web portal with comprehensive brand directory integration, real-time inventory discovery, and direct project desk communication.",
+    impactMetrics: [
+      { value: "Tier-1", label: "Authorized Brands (Havells, Finolex)" },
+      { value: "On-Site", label: "Contractor Delivery Support" },
+      { value: "Full-Spectrum", label: "Hardware & Electrical Catalog" },
+    ],
+    features: [
+      "Comprehensive multi-brand catalog (Havells, Crompton, Finolex, V-Guard)",
+      "Dedicated Contractor Project Desk & fast enquiry pipeline",
+      "Categorized exploration for electricals, plumbing, and sanitary goods",
+      "On-site site delivery logistics & dispatch coordination",
+      "Mobile-optimized high-performance portal architecture",
+    ],
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "React"],
+    accentColor: "#DE2F28", // Durozen Red
+    featured: false,
+    website: "https://www.srikrishnatraders.com/",
+    image: "/images/projects/sri-krishna-traders.png",
+  },
 ];
