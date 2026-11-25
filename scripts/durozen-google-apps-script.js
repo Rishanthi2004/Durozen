@@ -20,10 +20,11 @@ const CONFIG = {
   CONTACT_SHEET_NAME: "Inquiries",
   CAREERS_SHEET_NAME: "Careers",
 
-  // Routing Email Addresses
-  ADMIN_EMAIL: "sachinn2413@gmail.com",          // General & Sales inquiries recipient
-  CAREERS_EMAIL: "sachinn2413@gmail.com",        // Careers & HR applications recipient
-  SENDER_EMAIL: "sachinn2413@gmail.com",         // Authorized sender Google account
+  // Routing Email Addresses (Alerts sent to both director and HR; sachin email removed)
+  ALERT_EMAILS: "director@durozen.in, hr@durozen.in", // Receives all inbound admin alerts (comma-separated)
+  ADMIN_EMAIL: "director@durozen.in",                 // General & Sales inquiries reply-to & support contact
+  CAREERS_EMAIL: "hr@durozen.in",                     // Careers & HR applications reply-to
+  SENDER_EMAIL: "director@durozen.in",                // Default sender identity
   
   // Organization Metadata
   COMPANY_NAME: "Durozen Technologies",
@@ -92,6 +93,7 @@ function doPost(e) {
         status: "success",
         type: "career",
         message: "Career application received and recorded successfully.",
+        refId: record.refId,
         timestamp: record.timestamp.toISOString()
       });
 
@@ -109,6 +111,7 @@ function doPost(e) {
         status: "success",
         type: "contact",
         message: "Contact inquiry recorded and notifications sent.",
+        refId: record.refId,
         timestamp: record.timestamp.toISOString()
       });
     }
@@ -185,6 +188,7 @@ function syncGmailInbound() {
 
         if (isCareer) {
           const record = {
+            refId: `APP-EML-${Math.floor(10000 + Math.random() * 90000)}`,
             timestamp: msg.getDate() || new Date(),
             source: "Gmail Inbound",
             fullName: senderName || "Applicant",
@@ -199,6 +203,7 @@ function syncGmailInbound() {
           sendCareerAdminAlert(record);
         } else {
           const record = {
+            refId: `DRZ-EML-${Math.floor(10000 + Math.random() * 90000)}`,
             timestamp: msg.getDate() || new Date(),
             source: "Gmail Inbound",
             fullName: senderName || "Email Client",
@@ -240,7 +245,7 @@ function getOrInitContactSheet(sheetName) {
 
   if (sheet.getLastRow() === 0) {
     const headers = [
-      "Timestamp", "Source", "Full Name", "Company",
+      "Reference ID", "Timestamp", "Source", "Full Name", "Company",
       "Work Email", "Phone", "Service Required", "Budget Range", "Project Description", "Status"
     ];
     sheet.appendRow(headers);
@@ -252,13 +257,28 @@ function getOrInitContactSheet(sheetName) {
       .setHorizontalAlignment("center");
     sheet.setRowHeight(1, 36);
     sheet.setFrozenRows(1);
-    sheet.getRange(2, 1, sheet.getMaxRows() - 1, 1).setNumberFormat("yyyy-mm-dd hh:mm:ss");
+    if (sheet.getMaxRows() > 1) {
+      sheet.getRange(2, 2, sheet.getMaxRows() - 1, 1).setNumberFormat("yyyy-mm-dd hh:mm:ss");
+    }
+  } else {
+    // Gracefully upgrade existing sheet if Reference ID column is missing
+    const firstCell = String(sheet.getRange(1, 1).getValue()).trim();
+    if (firstCell === "Timestamp") {
+      sheet.insertColumnBefore(1);
+      sheet.getRange(1, 1).setValue("Reference ID")
+        .setFontWeight("bold")
+        .setBackground("#121316")
+        .setFontColor("#FFFFFF")
+        .setFontSize(11)
+        .setHorizontalAlignment("center");
+    }
   }
   return sheet;
 }
 
 function appendContactRecord(sheet, r) {
   sheet.appendRow([
+    r.refId,
     r.timestamp,
     r.source,
     r.fullName,
@@ -271,8 +291,8 @@ function appendContactRecord(sheet, r) {
     r.status || "New Lead"
   ]);
   const lastRow = sheet.getLastRow();
-  sheet.getRange(lastRow, 1, 1, 2).setHorizontalAlignment("center");
-  sheet.getRange(lastRow, 10, 1, 1).setHorizontalAlignment("center");
+  sheet.getRange(lastRow, 1, 1, 3).setHorizontalAlignment("center");
+  sheet.getRange(lastRow, 11, 1, 1).setHorizontalAlignment("center");
 }
 
 function getOrInitCareersSheet(sheetName) {
@@ -281,7 +301,7 @@ function getOrInitCareersSheet(sheetName) {
 
   if (sheet.getLastRow() === 0) {
     const headers = [
-      "Timestamp", "Source", "Candidate Name", "Email",
+      "Application ID", "Timestamp", "Source", "Candidate Name", "Email",
       "Phone", "Discipline / Role", "Portfolio / LinkedIn / GitHub", "Cover Note / Intro", "Status"
     ];
     sheet.appendRow(headers);
@@ -293,13 +313,28 @@ function getOrInitCareersSheet(sheetName) {
       .setHorizontalAlignment("center");
     sheet.setRowHeight(1, 36);
     sheet.setFrozenRows(1);
-    sheet.getRange(2, 1, sheet.getMaxRows() - 1, 1).setNumberFormat("yyyy-mm-dd hh:mm:ss");
+    if (sheet.getMaxRows() > 1) {
+      sheet.getRange(2, 2, sheet.getMaxRows() - 1, 1).setNumberFormat("yyyy-mm-dd hh:mm:ss");
+    }
+  } else {
+    // Gracefully upgrade existing sheet if Application ID column is missing
+    const firstCell = String(sheet.getRange(1, 1).getValue()).trim();
+    if (firstCell === "Timestamp") {
+      sheet.insertColumnBefore(1);
+      sheet.getRange(1, 1).setValue("Application ID")
+        .setFontWeight("bold")
+        .setBackground("#1E293B")
+        .setFontColor("#FFFFFF")
+        .setFontSize(11)
+        .setHorizontalAlignment("center");
+    }
   }
   return sheet;
 }
 
 function appendCareerRecord(sheet, r) {
   sheet.appendRow([
+    r.refId,
     r.timestamp,
     r.source,
     r.fullName,
@@ -311,8 +346,8 @@ function appendCareerRecord(sheet, r) {
     r.status || "New Candidate"
   ]);
   const lastRow = sheet.getLastRow();
-  sheet.getRange(lastRow, 1, 1, 2).setHorizontalAlignment("center");
-  sheet.getRange(lastRow, 9, 1, 1).setHorizontalAlignment("center");
+  sheet.getRange(lastRow, 1, 1, 3).setHorizontalAlignment("center");
+  sheet.getRange(lastRow, 10, 1, 1).setHorizontalAlignment("center");
 }
 
 // ============================================================================
@@ -324,8 +359,8 @@ function appendCareerRecord(sheet, r) {
  */
 function sendContactAdminAlert(r) {
   const formattedDate = Utilities.formatDate(r.timestamp, CONFIG.TIMEZONE, "dd MMM yyyy, hh:mm a") + " IST";
-  const subject = `[Project Inquiry] ${r.service} - ${r.fullName} ${r.company && r.company !== "Not specified" ? "(" + r.company + ")" : ""}`;
-  const previewText = `New project consultation: ${r.fullName} (${r.company}) requesting ${r.service} [Budget: ${r.budget}]`;
+  const subject = `[Project Inquiry - ${r.refId}] ${r.service} - ${r.fullName} ${r.company && r.company !== "Not specified" ? "(" + r.company + ")" : ""}`;
+  const previewText = `[Ref: ${r.refId}] New consultation: ${r.fullName} (${r.company}) requesting ${r.service} [Budget: ${r.budget}]`;
 
   const htmlBody = `
   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -400,14 +435,22 @@ function sendContactAdminAlert(r) {
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse: separate; border-spacing: 0; border: 1px solid #ECEBE6; border-radius: 12px; overflow: hidden; margin-bottom: 24px;">
                   <tr style="background-color: #FAF9F6;">
                     <td width="34%" style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 11px; font-weight: 700; color: #666664; text-transform: uppercase; letter-spacing: 0.06em;">
+                      Reference ID
+                    </td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 13px; font-weight: 700; font-family: monospace; color: #DE2F28;">
+                      ${escapeHtml(r.refId)}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="34%" style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 11px; font-weight: 700; color: #666664; text-transform: uppercase; letter-spacing: 0.06em; background-color: #FAF9F6;">
                       Client Name
                     </td>
                     <td style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 13px; font-weight: 700; color: #121316;">
                       ${escapeHtml(r.fullName)}
                     </td>
                   </tr>
-                  <tr>
-                    <td style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 11px; font-weight: 700; color: #666664; text-transform: uppercase; letter-spacing: 0.06em; background-color: #FAF9F6;">
+                  <tr style="background-color: #FAF9F6;">
+                    <td style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 11px; font-weight: 700; color: #666664; text-transform: uppercase; letter-spacing: 0.06em;">
                       Company / Organization
                     </td>
                     <td style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 13px; font-weight: 600; color: #121316;">
@@ -506,7 +549,7 @@ function sendContactAdminAlert(r) {
   `;
 
   MailApp.sendEmail({
-    to: CONFIG.ADMIN_EMAIL,
+    to: CONFIG.ALERT_EMAILS,
     subject: subject,
     htmlBody: htmlBody,
     name: CONFIG.COMPANY_NAME,
@@ -518,9 +561,9 @@ function sendContactAdminAlert(r) {
  * Production-Grade HTML Template: Client Confirmation Receipt
  */
 function sendContactClientReceipt(r) {
-  const subject = `Inquiry Confirmed: Welcome to ${CONFIG.COMPANY_NAME}`;
-  const refId = `DRZ-${Math.floor(100000 + Math.random() * 900000)}`;
-  const previewText = `Thank you for consulting Durozen Technologies. Your inquiry regarding ${r.service} has been received.`;
+  const refId = r.refId || `DRZ-${Math.floor(100000 + Math.random() * 900000)}`;
+  const subject = `Inquiry Confirmed: Welcome to ${CONFIG.COMPANY_NAME} [Ref: ${refId}]`;
+  const previewText = `Thank you for consulting Durozen Technologies. Your inquiry regarding ${r.service} has been received. [Ref: ${refId}]`;
 
   const htmlBody = `
   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -693,8 +736,8 @@ function sendContactClientReceipt(r) {
  */
 function sendCareerAdminAlert(r) {
   const formattedDate = Utilities.formatDate(r.timestamp, CONFIG.TIMEZONE, "dd MMM yyyy, hh:mm a") + " IST";
-  const subject = `[Career Application] ${r.discipline} - ${r.fullName}`;
-  const previewText = `New candidate profile: ${r.fullName} applying for ${r.discipline}`;
+  const subject = `[Career Application - ${r.refId}] ${r.discipline} - ${r.fullName}`;
+  const previewText = `[ID: ${r.refId}] New candidate profile: ${r.fullName} applying for ${r.discipline}`;
 
   const htmlBody = `
   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -768,6 +811,14 @@ function sendCareerAdminAlert(r) {
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse: separate; border-spacing: 0; border: 1px solid #ECEBE6; border-radius: 12px; overflow: hidden; margin-bottom: 24px;">
                   <tr style="background-color: #FAF9F6;">
                     <td width="34%" style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 11px; font-weight: 700; color: #666664; text-transform: uppercase; letter-spacing: 0.06em;">
+                      Application ID
+                    </td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 13px; font-weight: 700; font-family: monospace; color: #F4A81E;">
+                      ${escapeHtml(r.refId)}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="34%" style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 11px; font-weight: 700; color: #666664; text-transform: uppercase; letter-spacing: 0.06em; background-color: #FAF9F6;">
                       Candidate Name
                     </td>
                     <td style="padding: 12px 16px; border-bottom: 1px solid #ECEBE6; font-size: 13px; font-weight: 700; color: #121316;">
@@ -864,7 +915,7 @@ function sendCareerAdminAlert(r) {
   `;
 
   MailApp.sendEmail({
-    to: CONFIG.CAREERS_EMAIL,
+    to: CONFIG.ALERT_EMAILS,
     subject: subject,
     htmlBody: htmlBody,
     name: CONFIG.COMPANY_NAME,
@@ -876,9 +927,9 @@ function sendCareerAdminAlert(r) {
  * Production-Grade HTML Template: Candidate Confirmation Receipt
  */
 function sendCareerClientReceipt(r) {
-  const subject = `Application Received: Welcome to ${CONFIG.COMPANY_NAME} Careers`;
-  const appRef = `APP-${Math.floor(100000 + Math.random() * 900000)}`;
-  const previewText = `Thank you for applying to Durozen Technologies as part of our ${r.discipline} team.`;
+  const appRef = r.refId || `APP-${Math.floor(100000 + Math.random() * 900000)}`;
+  const subject = `Application Received: Welcome to ${CONFIG.COMPANY_NAME} Careers [ID: ${appRef}]`;
+  const previewText = `Thank you for applying to Durozen Technologies as part of our ${r.discipline} team. [ID: ${appRef}]`;
 
   const htmlBody = `
   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -1079,8 +1130,10 @@ function detectIfCareerSubmission(d) {
 }
 
 function normalizeContactRecord(d, source) {
-  const name = d.name || (d.firstName ? `${d.firstName} ${d.lastName || ""}`.trim() : "") || "Not specified";
+  const name = d.fullName || d.name || (d.firstName ? `${d.firstName} ${d.lastName || ""}`.trim() : "") || "Not specified";
+  const refId = `DRZ-${Math.floor(100000 + Math.random() * 900000)}`;
   return {
+    refId: refId,
     timestamp: new Date(),
     source: source || "Website Contact Form",
     fullName: name,
@@ -1095,14 +1148,18 @@ function normalizeContactRecord(d, source) {
 }
 
 function normalizeCareerRecord(d, source) {
-  const name = d.name || (d.firstName ? `${d.firstName} ${d.lastName || ""}`.trim() : "") || "Applicant";
+  const name = d.fullName || d.name || (d.firstName ? `${d.firstName} ${d.lastName || ""}`.trim() : "") || "Applicant";
+  const baseRole = d.discipline || d.role || "Software Engineering";
+  const discipline = d.experience ? `${baseRole} - ${d.experience}` : baseRole;
+  const appRef = `APP-${Math.floor(100000 + Math.random() * 900000)}`;
   return {
+    refId: appRef,
     timestamp: new Date(),
     source: source || "Website Careers Form",
     fullName: name,
     email: (d.email || "").trim() || "Not specified",
     phone: (d.phone || "").trim() || "Not specified",
-    discipline: d.discipline || d.role || "Software Engineering",
+    discipline: discipline,
     portfolioUrl: d.portfolioUrl || d.portfolio || d.linkedin || d.github || "N/A",
     message: d.message || d.note || "No note provided.",
     status: "New Candidate"
@@ -1111,7 +1168,7 @@ function normalizeCareerRecord(d, source) {
 
 function generateDedupeKey(d, type) {
   const email = (d.email || "").toLowerCase().trim();
-  const name = (d.name || "").toLowerCase().trim();
+  const name = (d.fullName || d.name || "").toLowerCase().trim();
   const raw = `${type}_${email}_${name}`;
   return Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, raw, Utilities.Charset.UTF_8)
     .map(b => (b < 0 ? b + 256 : b).toString(16).padStart(2, "0"))

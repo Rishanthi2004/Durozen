@@ -24,6 +24,20 @@ export default function BlogPage() {
 
   const categories = [
     "All",
+    "Enterprise ERP & CRM",
+    "Cloud & DevOps Engineering",
+    "Product Design & Engineering",
+    "Systems Integration & Consulting",
+    "Enterprise IT Leadership",
+    "UI/UX & Web Design",
+    "E-Commerce Engineering",
+    "Autonomous AI & Automation",
+    "Enterprise IT & AI",
+    "Software Engineering",
+    "Custom ERP & SaaS",
+    "Cloud & AI Transformation",
+    "Web Platforms & Commerce",
+    "Enterprise & Consumer Mobile",
     "Autonomous AI",
     "Cloud Architecture",
     "Distributed Systems",
@@ -31,6 +45,166 @@ export default function BlogPage() {
   ];
 
   const blogPosts: BlogPost[] = [
+    {
+      id: "custom-crm-erp-software-development-company-in-namakkal",
+      title: "Custom CRM & ERP Software Development Company in Namakkal: Unifying Sales, Billing & Inventory",
+      summary:
+        "How growing businesses eliminate disconnected spreadsheets and rigid per-seat SaaS subscriptions with custom-engineered CRM, ERP, and real-time financial ledger systems.",
+      category: "Enterprise ERP & CRM",
+      readTime: "11 min read",
+      date: "November 2026",
+      accentColor: "#DE2F28",
+    },
+    {
+      id: "cloud-engineering-devops-services-company-in-namakkal",
+      title: "Cloud Engineering & DevOps Services Company in Namakkal: Architecting 99.99% Uptime",
+      summary:
+        "How automated CI/CD pipelines, Infrastructure-as-Code, container orchestration, and cloud FinOps keep mission-critical applications fast, secure, and cost-efficient under peak load.",
+      category: "Cloud & DevOps Engineering",
+      readTime: "10 min read",
+      date: "November 2026",
+      accentColor: "#24419E",
+    },
+    {
+      id: "ui-ux-design-product-development-company-in-namakkal",
+      title: "UI/UX Design & Digital Product Development Company in Namakkal: From Concept to Launch",
+      summary:
+        "How user-centered product research, interactive Figma design systems, 3D spatial web interfaces, and rapid MVP engineering turn ambitious ideas into category-leading digital products.",
+      category: "Product Design & Engineering",
+      readTime: "10 min read",
+      date: "November 2026",
+      accentColor: "#549B31",
+    },
+    {
+      id: "api-integration-software-modernization-company-in-namakkal",
+      title: "API Integration & Legacy Software Modernization Company in Namakkal: Connecting Your Digital Ecosystem",
+      summary:
+        "How custom REST/GraphQL API middleware, real-time webhook orchestration, and incremental legacy refactoring eliminate manual data silos without disrupting daily business operations.",
+      category: "Systems Integration & Consulting",
+      readTime: "11 min read",
+      date: "November 2026",
+      accentColor: "#F4A81E",
+    },
+    {
+      id: "top-it-companies-in-namakkal-enterprise-digital-transformation",
+      title: "Top IT Companies in Namakkal: How Durozen Leads Enterprise Digital Transformation",
+      summary:
+        "An objective breakdown of what distinguishes true systems-engineering leaders among IT companies in Namakkal—from cloud architecture and applied AI to long-term SLA reliability.",
+      category: "Enterprise IT Leadership",
+      readTime: "10 min read",
+      date: "November 2026",
+      accentColor: "#24419E",
+    },
+    {
+      id: "website-design-company-in-namakkal-ui-ux-seo",
+      title: "Website Design Company in Namakkal: Crafting High-Converting, SEO-First Digital Experiences",
+      summary:
+        "Why modern businesses need more than a pretty template—combining conversion-focused UI/UX design, mobile-first ergonomics, and technical SEO architecture to turn visitors into qualified leads.",
+      category: "UI/UX & Web Design",
+      readTime: "10 min read",
+      date: "November 2026",
+      accentColor: "#549B31",
+    },
+    {
+      id: "ecommerce-website-development-in-namakkal",
+      title: "Ecommerce Website Development in Namakkal: Building Fast, Scalable Online Stores",
+      summary:
+        "From direct-to-consumer (D2C) retail brands to multi-vendor marketplaces—how custom e-commerce architecture boosts checkout conversions, automates GST billing, and scales effortlessly.",
+      category: "E-Commerce Engineering",
+      readTime: "11 min read",
+      date: "November 2026",
+      accentColor: "#DE2F28",
+    },
+    {
+      id: "ai-automation-software-company-in-namakkal",
+      title: "AI & Business Automation Software Company in Namakkal: Reclaiming Operational Speed",
+      summary:
+        "How forward-thinking businesses eliminate repetitive manual data entry, automate customer lead pipelines, and deploy custom AI assistants grounded in verified company data.",
+      category: "Autonomous AI & Automation",
+      readTime: "11 min read",
+      date: "November 2026",
+      accentColor: "#F4A81E",
+    },
+    {
+      id: "best-it-company-in-namakkal-cloud-ai-adoption",
+      title: "How the Best IT Company in Namakkal Accelerates Enterprise Cloud & AI Adoption",
+      summary:
+        "A practical blueprint for modernizing legacy on-premise systems, reducing cloud infrastructure waste, and deploying deterministic AI workflows without operational downtime.",
+      category: "Cloud & AI Transformation",
+      readTime: "10 min read",
+      date: "November 2026",
+      accentColor: "#24419E",
+    },
+    {
+      id: "software-company-in-namakkal-custom-erp-crm-saas",
+      title: "Custom ERP, CRM & SaaS Development: Why Partner with a Software Company in Namakkal",
+      summary:
+        "How high-growth businesses and SaaS founders build bespoke internal platforms and commercial software products with lower TCO, faster iteration, and 100% source code control.",
+      category: "Custom ERP & SaaS",
+      readTime: "11 min read",
+      date: "November 2026",
+      accentColor: "#DE2F28",
+    },
+    {
+      id: "web-development-company-in-namakkal-b2b-portals-ecommerce",
+      title: "High-Converting B2B Portals & E-Commerce: Web Development Company in Namakkal",
+      summary:
+        "How custom Next.js storefronts, real-time B2B dealer portals, and automated checkout pipelines drive higher conversion rates and effortless ERP synchronization.",
+      category: "Web Platforms & Commerce",
+      readTime: "10 min read",
+      date: "November 2026",
+      accentColor: "#549B31",
+    },
+    {
+      id: "mobile-app-development-company-in-namakkal-enterprise-field-consumer",
+      title: "Enterprise Field Apps & Consumer Mobile Products: Mobile App Development Company in Namakkal",
+      summary:
+        "From GPS-verified field sales apps that work without cellular signal to 5-star consumer marketplaces—how Durozen engineers resilient mobile experiences from prototype to Play Store scale.",
+      category: "Enterprise & Consumer Mobile",
+      readTime: "11 min read",
+      date: "November 2026",
+      accentColor: "#F4A81E",
+    },
+    {
+      id: "best-it-company-in-namakkal-enterprise-software-ai-cloud",
+      title: "Why Durozen is the Best IT Company in Namakkal for Enterprise Software, AI & Cloud",
+      summary:
+        "How Durozen Technologies is setting a new benchmark among IT companies in Namakkal by delivering Silicon Valley-grade cloud architecture, autonomous AI, and mission-critical software.",
+      category: "Enterprise IT & AI",
+      readTime: "10 min read",
+      date: "November 2026",
+      accentColor: "#24419E",
+    },
+    {
+      id: "software-company-in-namakkal-custom-web-mobile-erp-development",
+      title: "Choosing the Right Software Company in Namakkal: A Guide to Custom Software & App Development",
+      summary:
+        "Everything founders and business leaders need to know before hiring a software development company in Namakkal—from tech stack selection and security to ROI and source code ownership.",
+      category: "Software Engineering",
+      readTime: "11 min read",
+      date: "November 2026",
+      accentColor: "#DE2F28",
+    },
+    {
+      id: "web-development-company-in-namakkal-nextjs-edge-architecture",
+      title: "Engineering Sub-Second Web Platforms: What Sets the Best Web Development Company in Namakkal Apart",
+      summary:
+        "Why modern businesses are moving beyond slow, template-based websites to React Server Components, edge caching, and API-first web architectures engineered for speed and conversion.",
+      category: "Cloud Architecture",
+      readTime: "10 min read",
+      date: "November 2026",
+      accentColor: "#549B31",
+    },
+    {
+      id: "mobile-app-development-company-in-namakkal-ios-android-ai",
+      title: "Building AI-Native Android & iOS Apps: Inside a Top Mobile App Development Company in Namakkal",
+      summary:
+        "How Durozen architects 60-120 FPS cross-platform mobile applications with offline-first sync, real-time telemetry, and embedded AI agents for enterprises and startups.",
+      category: "Autonomous AI",
+      readTime: "11 min read",
+      date: "November 2026",
+      accentColor: "#F4A81E",
+    },
     {
       id: "how-to-automate-repetitive-business-processes",
       title: "How to Automate Repetitive Business Processes: A Practical Guide",

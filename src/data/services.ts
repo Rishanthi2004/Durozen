@@ -723,7 +723,7 @@ export const servicesData: ServiceItem[] = [
         "Security posture alignment with ISO 27001 and SOC 2 requirements",
       ],
       outcomes: [
-        "Uncovered and eliminated $120,000 in annual recurring cloud infrastructure waste",
+        "Uncovered and eliminated ₹1 Crore in annual recurring cloud infrastructure waste",
         "Guided enterprise transition from brittle legacy server to resilient container mesh",
       ],
     },

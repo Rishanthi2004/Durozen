@@ -17,7 +17,7 @@ export default function ContactPage() {
     email: "",
     phone: "",
     service: "Custom Software Development",
-    budget: "$25k - $50k",
+    budget: "₹1 - ₹3 Lakhs",
     message: "",
   });
 
@@ -71,10 +71,10 @@ export default function ContactPage() {
   ];
 
   const budgetOptions = [
-    "Under $25k",
-    "$25k - $50k",
-    "$50k - $100k",
-    "$100k+",
+    "Under ₹1 Lakh",
+    "₹1 - ₹3 Lakhs",
+    "₹3 - ₹10 Lakhs",
+    "₹10 Lakhs+",
   ];
 
   return (
@@ -145,7 +145,7 @@ export default function ContactPage() {
                         email: "",
                         phone: "",
                         service: "Custom Software Development",
-                        budget: "$25k - $50k",
+                        budget: "₹1 - ₹3 Lakhs",
                         message: "",
                       });
                     }}

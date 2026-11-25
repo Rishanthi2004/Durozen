@@ -116,7 +116,7 @@ export default function DigitalProductAnimation() {
 
             <div className="p-2 rounded-xl bg-[#24419E]/8 border border-[#24419E]/10">
               <div className="text-xs text-neutral-500 uppercase font-semibold">Total Volume</div>
-              <div className="text-xs font-bold text-[#24419E]">$4.8M USD</div>
+              <div className="text-xs font-bold text-[#24419E]">₹4.8 Cr</div>
             </div>
 
             <div className="flex items-center justify-between text-xs text-neutral-600 font-medium px-1">
